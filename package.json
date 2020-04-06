@@ -1,0 +1,25 @@
+{
+	"name": "super_sami",
+	"version": "1.0.0",
+	"description": "online shop",
+	"main": "index.js",
+	"directories": {
+		"test": "tests"
+	},
+	"scripts": {
+		"test": "jest --coverage"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/morhasid/WebApp.git"
+	},
+	"author": "Mor",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/morhasid/WebApp/issues"
+	},
+	"homepage": "https://github.com/morhasid/WebApp#readme",
+	"devDependencies": {
+		"jest": "^25.2.7"
+	}
+}
