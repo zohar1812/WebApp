@@ -22,4 +22,5 @@ blocks:
       jobs:
         - name: eslint
           commands:
+            - npm install
             - npm run lint -- --fix
