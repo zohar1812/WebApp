@@ -19,4 +19,4 @@ blocks:
             - npm test
         - name: eslint
           commands:
-            - 'lint '
+            - npm run lint -- --fix
