@@ -12,7 +12,7 @@ blocks:
             - npm install
             - cache store
             - npm run build --if-present
-            - deploy --only hosting
+            - firebase deploy --only hosting
       secrets:
         - name: FIREBASE_TOKEN
 agent:
