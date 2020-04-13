@@ -2,8 +2,8 @@ version: v1.0
 name: Test MyApp
 agent:
   machine:
-    type: e1-standard-2
-    os_image: ubuntu1804
+    type: n1-standard-1
+    os_image: debian-9-stretch-v20200309
 blocks:
   - name: Tests
     task:
