@@ -4,7 +4,7 @@ name: Docker build
 agent:
   machine:
     type: e2-medium (2 vCPUs, 4 GB memory)
-    os_image: ubuntu1804
+    os_image: debian-9-stretch-v20200309
 blocks:
   - name: Build
     task:
