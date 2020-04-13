@@ -1,0 +1,21 @@
+version: v1.0
+name: Pipeline 2
+blocks:
+  - name: Firebase deployment
+    task:
+      jobs:
+        - name: main website deloyment
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - npm install
+            - cache store
+            - npm run build --if-present
+            - deploy --only hosting
+      secrets:
+        - name: FIREBASE_TOKEN
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
