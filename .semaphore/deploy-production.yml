@@ -3,8 +3,8 @@ version: v1.0
 name: Deploy to production
 agent:
   machine:
-    type: n1-standard-1
-    os_image: debian-9-stretch-v20200309
+    type: e1-standard-2
+    os_image: ubuntu1804
 blocks:
   - name: Deploy to production
     task:
@@ -15,4 +15,4 @@ blocks:
           commands:
             - gcloud auth activate-service-account --key-file=.secrets.gcp.json
             - gcloud auth configure-docker -q
-            - gcloud beta run deploy super-sami --project super --image gcr.io/super/super-sami:${SEMAPHORE_GIT_SHA:0:7} --region europe-west3-c
+            - gcloud beta run deploy super-sami --project super --image gcr.io/concise-emblem-273511/super-sami:${SEMAPHORE_GIT_SHA:0:7} --region europe-west3-c
