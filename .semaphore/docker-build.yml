@@ -3,8 +3,8 @@ version: v1.0
 name: Docker build
 agent:
   machine:
-    type: e2-medium
-    os_image: debian-9-stretch-v20200309
+    type: e2-standard-2
+    os_image: ubuntu1604
 blocks:
   - name: Build
     task:
@@ -16,8 +16,8 @@ blocks:
             - gcloud auth activate-service-account --key-file=.secrets.gcp.json
             - gcloud auth configure-docker -q
             - checkout
-            - docker build -t "gcr.io/super/test:${SEMAPHORE_GIT_SHA:0:7}" .
-            - docker push "gcr.io/super/test:${SEMAPHORE_GIT_SHA:0:7}"
+            - docker build -t "gcr.io/super/super:${SEMAPHORE_GIT_SHA:0:7}" .
+            - docker push "gcr.io/super/super:${SEMAPHORE_GIT_SHA:0:7}"
 
 promotions:
 
