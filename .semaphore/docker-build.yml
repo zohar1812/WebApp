@@ -3,8 +3,8 @@ version: v1.0
 name: Docker build
 agent:
   machine:
-    type: e2-standard-2
-    os_image: ubuntu1604
+    type: e1-standard-2
+    os_image: ubuntu1804
 blocks:
   - name: Build
     task:
