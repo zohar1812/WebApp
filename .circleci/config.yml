@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+    build:
+        docker:
+            - image: circleci/node:10.16.3
+        working_directory: ~/ProjectManagement
+        steps:
+            - checkout
+            - run:
+                name: install npm
+                command: sudo npm install 
+            - run:
+                name: install firebase
+                command: npm install --save-dev firebase-tools
+            - run:
+                name: install npm
+                command: sudo npm install -g eslint
+            - save_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+                paths: 
+                - ./node_modules 
+            - run:
+                name: test
+                command: npm test
+            - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
+                path: coverage
+                prefix: coverage
+            - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+                path: test-results.xml
+            - run:
+                name: run ESLint
+                command: npm run lint -- --fix   
+            - run:
+                name: Deploy Master to Firebase
+                command: ./node_modules/.bin/firebase deploy --token=1//09MVuLmIwSAbQCgYIARAAGAkSNwF-L9IrtXde3ic1mf89Fj33TgE6X85o-lKwqWGGuwWvIk5rfTaoOKbf9oqyDZITM3lAHitPoME #$
