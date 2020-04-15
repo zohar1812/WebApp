@@ -9,7 +9,8 @@
 	"scripts": {
 		"dev": "nodemon src/index.js",
 		"test": "jest --coverage",
-		"lint": "./node_modules/.bin/eslint ./"
+		"lint": "./node_modules/.bin/eslint ./",
+		"start": "node src/index.js"
 	},
 	"repository": {
 		"type": "git",
