@@ -7,6 +7,7 @@
 		"test": "tests"
 	},
 	"scripts": {
+		"dev": "nodemon src/index.js",
 		"test": "jest --coverage",
 		"lint": "./node_modules/.bin/eslint ./"
 	},
@@ -24,6 +25,10 @@
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
 		"eslint-plugin-import": "^2.20.2",
-		"jest": "^25.2.7"
+		"jest": "^25.2.7",
+		"nodemon": "^2.0.3"
+	},
+	"dependencies": {
+		"express": "^4.17.1"
 	}
 }
