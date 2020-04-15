@@ -15,4 +15,4 @@ blocks:
           commands:
             - gcloud auth activate-service-account --key-file=.secrets.gcp.json
             - gcloud auth configure-docker -q
-            - gcloud beta run deploy super-sami --project concise-emblem-273511 --image gcr.io/concise-emblem-273511/super-sami:${SEMAPHORE_GIT_SHA:0:7} --platform managed --region europe-west3
+            - gcloud run deploy super-sami --project concise-emblem-273511 --image gcr.io/concise-emblem-273511/super-sami:${SEMAPHORE_GIT_SHA:0:7} --platform managed --region europe-west3
