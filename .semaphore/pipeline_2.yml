@@ -12,7 +12,8 @@ blocks:
             - npm install
             - cache store
             - npm run build --if-present
-            - firebase deploy --only hosting
+            - npm install --save-dev firebase-tools
+            - ./node_modules/.bin/firebase deploy --non-interactive --token $FIREBASE_TOKEN
       secrets:
         - name: FIREBASE_TOKEN
 agent:
