@@ -1,6 +1,23 @@
 const config = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\config.js');
 const users = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\src\\models\\users.js');
 
+const createUser = function (req,res) {
+    let sql = "Select * from users where username ='"+req.body.username + "'";
+    let query = config.connection.query(sql,(err, result) => {
+        if(err) throw err;
+        if(result.length != 0){
+            res.render('registration', {errors:{
+                    username: 'A selected username already exists'}});
+        }
+        let errors = registrationUser(req,res);
+        if(errors){
+            res.redirect('/forgot/user');
+        }
+        else{
+            res.render('registration', errors);
+        }
+    });
+}
 
 function registrationUser(req,res){
     let data;
@@ -16,9 +33,8 @@ function registrationUser(req,res){
             data = {id: req.body.ID, name: req.body.name, lastName: req.body.lastName,
                 userName: req.body.username, password: req.body.password ,type:'regular',ans:req.body.ans};
         }
-        users.saveUser(data,res);
+        return users.saveUser(data,res)
     }
-    return errors;
 }
 
 function validation(req){
@@ -71,4 +87,4 @@ function isEmpty(obj) {
     return Object.keys(obj).length === 0;
 }
 
-module.exports.registrationUser = registrationUser;
+module.exports.createUser = createUser;
