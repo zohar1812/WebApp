@@ -11,11 +11,11 @@ const getUser = function getUser(userName){
     });
 }
 
-const saveNewUser = function saveUser(data,res) {
+const saveNewUser = async function saveUser(data, res) {
     let sql = "INSERT INTO users SET ?";
-    let query = config.connection.query(sql, data, (err, results) => {
+    let query = await config.connection.query(sql, data, (err, results) => {
         if (err) throw err;
-        res.redirect('/');
+        res.redirect('/forgot/user');
     });
 }
 
