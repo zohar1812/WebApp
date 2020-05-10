@@ -1,5 +1,5 @@
-const config = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\config.js');
-const users = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\src\\models\\users.js');
+const users = require('../../models/users');
+const config = require('../../config');
 
 const createUser = function (req, res) {
   const sql = `Select * from users where username ='${req.body.username}'`;
@@ -21,6 +21,7 @@ const createUser = function (req, res) {
 
 function registrationUser(req, res) {
   let data;
+  // eslint-disable-next-line no-use-before-define
   const errors = validation(req);
   if (!isEmpty(errors)) {
     return { errors };
