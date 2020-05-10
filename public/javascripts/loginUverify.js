@@ -1,24 +1,48 @@
-const config=require('‪..config.js');
-const index=require('‪..index.js');
+// eslint-disable-next-line no-unused-vars
+const user = require('../../models/users');
 
-function loginV(req,res) {
-    let sql = "Select * from users where id =`" + req.body.usn + "'";
-    let query = config.connection.query(sql, (err, result) => {
-        if (err) throw err;
-        if (result.length == 0) {
-            res.redirect('login', {error: 'user '});
-        } else {
-            var ans = psw_varify(req, res, result[0]);
-            if (ans)
-                print("welcome!!");
-            else
-                print("no user found!");
-        }
-    });
+
+// eslint-disable-next-line no-unused-vars
+function loginV(username, password, callBackFunction) {
+  user.getUserByUserName(username, (userFromDb) => {
+    let result;
+    if (userFromDb.length === 0) {
+      result = {
+        id: null,
+        error: 'No such user exists',
+      };
+    } else {
+      // eslint-disable-next-line no-use-before-define
+      const ans = pswVarify(password, userFromDb[0].password);
+      if (ans) {
+        result = {
+          user: userFromDb[0],
+        };
+      } else {
+        result = {
+          error: 'Wrong username or password',
+        };
+      }
+    }
+    callBackFunction(result);
+  });
+
+
+  // const sql = `Select * from users where id =\`${req.body.usn}'`;
+  // const query = config.connection.query(sql, (err, result) => {
+  //   if (err) throw err;
+  //   if (result.length == 0) {
+  //     res.redirect('login', { error: 'user ' });
+  //   } else {
+  //     const ans = psw_varify(req, res, result[0]);
+  //     if (ans) { print('welcome!!'); } else { print('no user found!'); }
+  //   }
+  // });
 }
 
-function psw_varify(req,res,result) {
-    if(req.body.psw!=result.body.password)
-        return 0;
-    return 1;
+// eslint-disable-next-line camelcase
+function pswVarify(reqPassword, resultPassword) {
+  if (reqPassword != resultPassword) { return 0; }
+  return 1;
 }
+exports.loginV = loginV;
