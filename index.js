@@ -1,11 +1,11 @@
-const user = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\src\\models\\users.js');
-const rec = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\src\\public\\javascripts\\reconstruction.js');
 const path = require('path');
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
-const register = require('./src/public/javascripts/registration.js');
+const user = require('./models/users');
+const rec = require('./public/javascripts/reconstruction');
+const register = require('./public/javascripts/registration.js');
 const config = require('./config.js');
 
 const app = express();
