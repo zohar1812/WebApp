@@ -1,28 +1,26 @@
-const users = require('../../models/users');
 const config = require('../../config');
+const users = require('../../models/users');
+const psw = require('./password')
 
-const createUser = function (req, res) {
-  const sql = `Select * from users where username ='${req.body.username}'`;
-  const query = config.connection.query(sql, (err, result) => {
-    if (err) throw err;
-    if (result.length != 0) {
-      res.render('registration', {
-        errors: { username: 'A selected username already exists' },
-      });
+
+const createUser = function (req, callBackFunction) {
+  let errors = {};
+  // eslint-disable-next-line no-undef
+  users.getUserByUserName(req.body.username, (userFromDb) => {
+    if (userFromDb.length != 0) {
+      errors.username = 'A selected username already exists';
     }
-    const errors = registrationUser(req, res);
-    if (errors) {
-      res.redirect('/forgot/user');
-    } else {
-      res.render('registration', errors);
-    }
+    // eslint-disable-next-line no-const-assign,no-use-before-define
+    errors = registrationUser(req);
+    callBackFunction(errors);
   });
 };
 
-function registrationUser(req, res) {
+function registrationUser(req) {
   let data;
   // eslint-disable-next-line no-use-before-define
   const errors = validation(req);
+  // eslint-disable-next-line no-use-before-define
   if (!isEmpty(errors)) {
     return { errors };
   }
@@ -48,51 +46,53 @@ function registrationUser(req, res) {
       ans: req.body.ans,
     };
   }
-  return users.saveUser(data, res);
+  return users.saveUser(data);
 }
 
 function validation(req) {
   const errors = {};
+  // eslint-disable-next-line no-use-before-define
   validID(req.body.ID, errors);
+  // eslint-disable-next-line no-use-before-define
   validName(req.body.name, errors);
+  // eslint-disable-next-line no-use-before-define
   validLastname(req.body.lastName, errors);
   if (req.body.studentID != '') {
+    // eslint-disable-next-line no-use-before-define
     validStudentID(req.body.studentID, errors);
   }
-  validPassword(req.body.password, errors);
+  // eslint-disable-next-line no-use-before-define
+  psw.validPassword(req.body.password, errors);
   return errors;
 }
 
 
 function validID(id, errors) {
-  if (id.length != 9) {
+  // eslint-disable-next-line eqeqeq
+  if (id.length !== 9) {
+    // eslint-disable-next-line no-param-reassign
     errors.ID = 'Must contain 9 numbers';
   }
 }
 
 function validName(name, errors) {
   if (!/^[a-zA-Z]+$/.test(name)) {
+    // eslint-disable-next-line no-param-reassign
     errors.name = 'Name must contain only letters';
   }
 }
 
 function validLastname(lastName, errors) {
   if (!/^[a-zA-Z]+$/.test(lastName)) {
+    // eslint-disable-next-line no-param-reassign
     errors.lastName = 'Last name must contain only letters';
   }
 }
 function validStudentID(studentID, errors) {
-  if (studentID.length != 6) {
+  // eslint-disable-next-line eqeqeq
+  if (studentID.length !== 6) {
+    // eslint-disable-next-line no-param-reassign
     errors.studentID = 'Must contain 6 numbers';
-  }
-}
-
-function validPassword(password, errors) {
-  if (password.length < 8 || password.length > 15 || !/^[a-zA-Z0-9]+$/.test(password)) {
-    errors.password = '1. The password must contain between 8 and 15 characters\n '
-            + '2. The password must contain letters\n'
-            + ' 3. The password must contain numbers\n'
-            + 'At least one of the parameters does not exist';
   }
 }
 function isEmpty(obj) {
