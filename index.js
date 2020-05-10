@@ -1,8 +1,11 @@
+const user = require('./models/users');
+const rec = require('./public/javascripts/reconstruction');
 const path = require('path');
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const register = require('./public/javascripts/registration');
 const user = require('./models/users');
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
@@ -87,6 +90,33 @@ app.post('/forgot/reset/user/:id', (req, res) => {
 });
 
 
+// app.get('/edit/:userId',(req, res) => {
+//     const userId = req.params.userId;
+//     let sql = `Select * from users where id = ${userId}`;
+//     let query = connection.query(sql,(err, result) => {
+//         if(err) throw err;
+//         res.render('user_edit', {
+//             title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
+//             user : result[0]
+//         });
+//     });
+// });
+// app.post('/update',(req, res) => {
+//     const userId = req.body.id;
+//     let sql = "update users SET name='"+req.body.name+"',  email='"+req.body.email+"',  phone_no='"+req.body.phone_no+"' where id ="+userId;
+//     let query = connection.query(sql,(err, results) => {
+//         if(err) throw err;
+//         res.redirect('/');
+//     });
+// });
+// app.get('/delete/:userId',(req, res) => {
+//     const userId = req.params.userId;
+//     let sql = `DELETE from users where id = ${userId}`;
+//     let query = connection.query(sql,(err, result) => {
+//         if(err) throw err;
+//         res.redirect('/');
+//     });
+// });
 // Server Listening
 
 app.get('/login', (req, res) => {
