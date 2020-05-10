@@ -1,4 +1,4 @@
-const config = require('C:\\Users\\Nastya\\WebstormProjects\\WebApp\\config.js');
+const config = require('../config');
 
 const getUserByUserName = function getUser(userName) {
   const sql = `Select * from users where username ='${userName}'`;
