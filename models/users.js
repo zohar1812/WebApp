@@ -1,35 +1,29 @@
 const config = require('../config');
 
-const getUserByUserName = function getUser(userName) {
-  const sql = `Select * from users where username ='${userName}'`;
-  const query = config.connection.query(sql, (err, result) => {
-    if (err) throw err;
-    return result[0];
-  });
-  return query;
-};
 
-const saveNewUser = async function saveUser(data, res) {
+const saveNewUser = function saveUser(data) {
   const sql = 'INSERT INTO users SET ?';
-  const query = await config.connection.query(sql, data, (err, results) => {
+  // eslint-disable-next-line no-unused-vars
+  const query = config.connection.query(sql, data, (err, results) => {
     if (err) throw err;
     return true;
-    // res.redirect('/');
   });
 };
 
-const getUserByName = function getUserByName(userName, callbackFunc) {
+const getUserByUserName = function getUserByUserName(userName, callbackFunc) {
   const sql = `Select * from users where username ='${userName}'`;
   config.connection.query(sql, (err, result) => {
     if (err) throw err;
-    callbackFunc(result[0]);
+    callbackFunc(result);
   });
 };
 
 const updateUserPassword = function updateUserPassword(userName, password) {
-  const sql = `update users SET password='${password}' WHERE username =${userName}`;
-  const query = connection.query(sql, (err, results) => {
+  const sql = `update users SET password='${password}' WHERE username ='${userName}'`;
+  // eslint-disable-next-line no-undef
+  const query = config.connection.query(sql, (err, results) => {
     if (err) throw err;
+    return true;
   });
 };
 
@@ -41,6 +35,6 @@ const updateUserPassword = function updateUserPassword(userName, password) {
 //     });
 // }
 exports.updateUserPassword = updateUserPassword;
-exports.getUserByName = getUserByName;
+exports.getUserByUserName = getUserByUserName;
 exports.saveUser = saveNewUser;
 exports.getUserByUserName = getUserByUserName;
