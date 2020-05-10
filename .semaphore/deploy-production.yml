@@ -1,0 +1,18 @@
+# .semaphore/deploy-production.yml
+version: v1.0
+name: Deploy to production
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy to production
+    task:
+      secrets:
+        - name: google-cloud-stg
+      jobs:
+        - name: run deploy
+          commands:
+            - gcloud auth activate-service-account --key-file=.secrets.gcp.json
+            - gcloud auth configure-docker -q
+            - gcloud beta run deploy super-sami --project concise-emblem-273511 --image gcr.io/concise-emblem-273511/super-sami:${SEMAPHORE_GIT_SHA:0:7} --platform managed --region euro

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/registration.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+<div class="container">
+    <h2>Registration</h2>
+    <form action="/save" method="post">
+        <div class="form-group">
+            <label for="name">ID:</label>
+            <input type="text" class="form-control" id="pwd" placeholder="Enter ID" name="ID" required>
+        </div>
+        <% if (errors.ID) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.ID %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" required>
+        </div>
+        <% if (errors.name) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.name %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="name">Last Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Last name" name="lastName" required>
+        </div>
+        <% if (errors.lastname) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.lastName %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="name">Student ID:</label>
+            <input type="text" class="form-control" id="pwd" placeholder="Enter student ID" name="studentID" >
+        </div>
+        <% if (errors.studentID) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.studentID %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="name">User name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter user name" name="username" required>
+        </div>
+        <% if (errors.username) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.username %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="password" required>
+        </div>
+        <% if (errors.password) { %>
+            <div class="alert alert-danger" role="alert"><%- errors.password %></div>
+        <% } %>
+        <div class="form-group">
+            <label for="name">What’s your favorite fruit:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your password recovery answer" name="ans" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <a href="/login" class="btn btn-sm btn-primary">Back to login</a>
+</div>
+</body>
+</html>
