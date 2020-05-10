@@ -1,5 +1,4 @@
 
-
 function validPassword(password, errors) {
   if (password.length < 8 || password.length > 15 || !/^[a-zA-Z0-9]+$/.test(password)) {
     errors.password = '1. The password must contain between 8 and 15 characters\n '

@@ -62,11 +62,7 @@ app.post('/forgot/user', (req, res) => {
     });
   });
 });
-// app.get('/forgot/question/user/:id',(req,res)=>{
-//     res.render('forgot-password-question',(req,res)=>{
-//         errors: {
-//         }});
-// });
+
 app.post('/forgot/question/user/:id', (req, res) => {
   if (rec.validAns(req.body.ans, req.body.userans)) {
     res.render('forgot-password-reset', {
@@ -109,13 +105,6 @@ app.post('/forgot/reset/user/:id', (req, res) => {
   }
 });
 
-
-// function psw_varify(req, res, result) {
-//   if (req.body.psw != result.password) return 0;
-//   return 1;
-// }
-//   }
-// });
 app.post('/forgot/reset/user/:id', (req, res) => {
   const errors = rec.updatePassword(req.body.username, req.body.password);
   if (!rec.isEmpty(errors)) {
