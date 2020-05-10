@@ -5,6 +5,7 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+// eslint-disable-next-line no-unused-vars
 const user = require('./models/users');
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
@@ -113,8 +114,8 @@ app.post('/forgot/reset/user/:id', (req, res) => {
 //   if (req.body.psw != result.password) return 0;
 //   return 1;
 // }
-  }
-});
+//   }
+// });
 app.post('/forgot/reset/user/:id', (req, res) => {
   const errors = rec.updatePassword(req.body.username, req.body.password);
   if (!rec.isEmpty(errors)) {
