@@ -1,3 +1,5 @@
+const user = require('./models/users');
+const rec = require('./public/javascripts/reconstruction');
 const path = require('path');
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
@@ -111,6 +113,31 @@ app.post('/forgot/reset/user/:id', (req, res) => {
 //   if (req.body.psw != result.password) return 0;
 //   return 1;
 // }
+  }
+});
+app.post('/forgot/reset/user/:id', (req, res) => {
+  const errors = rec.updatePassword(req.body.username, req.body.password);
+  if (!rec.isEmpty(errors)) {
+    res.render('forgot-password-reset', {
+      user: {
+        username: req.body.username,
+        id: req.params.id,
+        ans: req.body.ans,
+      },
+      messages: {
+        error: errors.password,
+      },
+    });
+  } else {
+    res.render('login');
+  }
+});
+
+
+function psw_varify(req, res, result) {
+  if (req.body.psw != result.password) return 0;
+  return 1;
+}
 
 app.post('/loginverify', (req, res) => {
   loginToSys.loginV(req.body.username, req.body.password, (result) => {
@@ -126,21 +153,6 @@ app.post('/loginverify', (req, res) => {
       });
     }
   });
-  // const sql = `Select * from users where username ='${req.body.usn}'`;
-  // // eslint-disable-next-line no-unused-vars
-  // const query = config.connection.query(sql, (err, result) => {
-  //   if (err) throw err;
-  //   // eslint-disable-next-line eqeqeq
-  //   if (result.length === 0) {
-  //     res.redirect('login', { error: 'user ' });
-  //   } else {
-  //     const ans = psw_varify(req, res, result[0]);
-  //     if (ans) {
-  //       // eslint-disable-next-line no-console
-  //       console.log('great!');
-  //     } else console.log('no!!');
-  //   }
-  // });
 });
 app.listen(8000, () => {
   console.log('Server is running at port 8000');
