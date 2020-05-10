@@ -1,6 +1,6 @@
 const config = require('../../config');
 const users = require('../../models/users');
-const psw = require('./password')
+const psw = require('./password');
 
 
 const createUser = function (req, callBackFunction) {

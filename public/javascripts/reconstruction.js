@@ -29,7 +29,6 @@ function validAns(ans, userAns) {
   return false;
 }
 
-// eslint-disable-next-line no-unused-vars
 function updatePassword(userName, password) {
   const errors = {};
   psw.validPassword(password, errors);
