@@ -1,9 +1,5 @@
-body{
-    height: 100%;
-}
 .container{
     display: flex;
     justify-content: center;
     align-content: center;
-    height: 100%;
 }
