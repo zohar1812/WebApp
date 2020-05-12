@@ -1,29 +1,91 @@
-const user = require('./models/users');
-const rec = require('./public/javascripts/reconstruction');
 const path = require('path');
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 // eslint-disable-next-line no-unused-vars
-const user = require('./models/users');
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
 const loginToSys = require('./public/javascripts/loginUverify');
+const productTable = require('./models/products');
+const toMainPage = require('./public/javascripts/mainPage');
+// eslint-disable-next-line no-unused-vars
+const productAction = require('./public/javascripts/product');
 const config = require('./config.js');
 
 const app = express();
 
-
+let user = {};
 app.use(express.static(`${__dirname}/public`));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.get('/', (req, res) => res.render('login', {
-  errors: {
-  },
-}));
+
+// toMainPage.getAllAvailableProducts();
+
+app.get('/', (req, res) => {
+  toMainPage.getAllAvailableProducts((result) => {
+    res.render('home', {
+      user,
+      products: result,
+    });
+  });
+});
+
+app.get('/sorted/:attr', (req, res) => {
+  const { attr } = req.params;
+  toMainPage.getAllAvailableProducts((result) => {
+    // eslint-disable-next-line no-param-reassign
+    toMainPage.availableProducts = result.sort((a, b) => (a[attr] > b[attr] ? 1 : -1));
+    res.render('home', { products: result });
+  });
+});
+
+
+app.post('/filter', (req, res) => {
+  toMainPage.getAllAvailableProducts((result) => {
+    result = toMainPage.filterProducts(result, req.body.parameter, req.body.keyword);
+    res.render('home', { products: result });
+  });
+});
+
+app.get('/cancelfilter', (req, res) => {
+  res.redirect('/');
+});
+
+app.get('/adminpage', (req, res) => {
+  productTable.getAllProducts((result) => {
+    res.render('admin', { products: result });
+  });
+});
+
+app.get('/edit/:productId', (req, res) => {
+  productTable.getProductByID(req.params.productId, (result) => {
+    res.render('edit-product', {
+      products: result[0],
+    });
+  });
+});
+app.post('/edit/:productId', (req, res) => {
+  productAction.editProduct(req.params.productId, req.body);
+  res.redirect(`/edit/${req.params.productId}`);
+});
+
+app.get('/add/product', (req, res) => {
+  res.render('addProduct');
+});
+
+app.post('/add/product', (req, res) => {
+  productAction.addProduct(req.body);
+  res.render('admin');
+});
+
+app.get('/delete/product/:productId', (req, res) => {
+  productAction.deleteProduct(req.params.productId);
+  res.redirect('admin');
+});
+
 
 app.get('/registration', (req, res) => {
   res.render('registration', {
@@ -123,27 +185,29 @@ app.post('/forgot/reset/user/:id', (req, res) => {
   }
 });
 
-
-function psw_varify(req, res, result) {
-  if (req.body.psw != result.password) return 0;
-  return 1;
-}
-
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 app.post('/loginverify', (req, res) => {
   loginToSys.loginV(req.body.username, req.body.password, (result) => {
     if (result.error) {
       res.render('login', result);
     } else {
-      res.render('home', {
-        user: {
-          id: result.user.id,
-          username: result.user.username,
-          type: result.user.type,
-        },
-      });
+      user = {
+        id: result.user.id,
+        username: result.user.username,
+        type: result.user.type,
+      };
+      if (user.type == 'admin') {
+        res.render('/adminpage');
+      } else {
+        res.redirect('/');
+      }
     }
   });
 });
-app.listen(8000, () => {
+
+
+app.listen(3000, () => {
   console.log('Server is running at port 8000');
 });
