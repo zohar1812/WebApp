@@ -15,7 +15,7 @@ const config = require('./config.js');
 
 const app = express();
 
-let user = {};
+const userInf = {};
 app.use(express.static(`${__dirname}/public`));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     res.render('home', {
-      user,
+      user: userInf,
       products: result,
     });
   });
@@ -193,11 +193,9 @@ app.post('/loginverify', (req, res) => {
     if (result.error) {
       res.render('login', result);
     } else {
-      user = {
-        id: result.user.id,
-        username: result.user.username,
-        type: result.user.type,
-      };
+      user.id = result.user.id;
+      user.username = result.user.username;
+      user.type = result.user.type;
       if (user.type == 'admin') {
         res.render('/adminpage');
       } else {
