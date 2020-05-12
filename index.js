@@ -11,11 +11,15 @@ const productTable = require('./models/products');
 const toMainPage = require('./public/javascripts/mainPage');
 // eslint-disable-next-line no-unused-vars
 const productAction = require('./public/javascripts/product');
+const orderAction = require('./public/javascripts/order');
+const orderProductTable = require('./models/productOrder');
+const orderTable = require('./models/order');
 const config = require('./config.js');
 
 const app = express();
-
+let cartID = 0;
 const userInf = {};
+let productOrder = [];
 app.use(express.static(`${__dirname}/public`));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -28,6 +32,8 @@ app.get('/', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     res.render('home', {
       user: userInf,
+      cart: cartID,
+      order: productOrder,
       products: result,
     });
   });
@@ -193,18 +199,35 @@ app.post('/loginverify', (req, res) => {
     if (result.error) {
       res.render('login', result);
     } else {
-      user.id = result.user.id;
-      user.username = result.user.username;
-      user.type = result.user.type;
-      if (user.type == 'admin') {
+      userInf.id = result.user.id;
+      userInf.username = result.user.username;
+      userInf.type = result.user.type;
+      if (userInf.type == 'admin') {
         res.render('/adminpage');
       } else {
-        res.redirect('/');
+        orderAction.createCart(userInf.type, (result) => {
+          cartID = result.orderId;
+          orderProductTable.getProductsByOrderId(result.orderId, (productFromDB) => {
+            productOrder = productFromDB;
+            res.redirect('/');
+          });
+        });
       }
     }
   });
 });
 
+app.post('/cart/add/:cartId/:productId', (req, res) => {
+  orderAction.addProductToCart(req.params.cartId, req.params.productId, req.body.amaount,
+    () => {
+      orderProductTable.getProductsByOrderId(req.params.cartId,
+        (productFromDB) => {
+          productOrder = productFromDB;
+          console.log(productOrder);
+          res.redirect('/');
+        });
+    });
+});
 
 app.listen(3000, () => {
   console.log('Server is running at port 8000');
