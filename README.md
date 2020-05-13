@@ -29,7 +29,7 @@ SuperSami main goal is to help students pay less money and save more time by sho
 Setup your local environement `npm install`
 
 ## Run Tests
-Just use: `npm install` and all tests will be executed by Jest
+Just use: `npm test` and all tests will be executed by Jest
 
 ## Features
 * Sort and filter Products by any parameter and keyword!
@@ -41,8 +41,6 @@ Just use: `npm install` and all tests will be executed by Jest
 ## Status
 Project is: _finished_
 
-## Inspiration
-Add here credits. Project inspired by..., based on...
 
 ## Contact 🤝
 Feel free to contact us!
