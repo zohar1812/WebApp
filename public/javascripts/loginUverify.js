@@ -47,3 +47,4 @@ function pswVarify(reqPassword, resultPassword) {
   return 1;
 }
 exports.loginV = loginV;
+exports.pswVarify = pswVarify;
