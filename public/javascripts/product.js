@@ -3,8 +3,10 @@ const productTable = require('../../models/products');
 
 function editProduct(productID, reqBody) {
   const message = {};
+  // eslint-disable-next-line eqeqeq
   if (reqBody.parameter == 'price') {
     updateProductPrice(productID, Number(reqBody.val), message);
+    // eslint-disable-next-line eqeqeq
   } else if (reqBody.parameter == 'quantity') {
     updateProductAmound(productID, Number(reqBody.val), message);
   } else {
@@ -64,4 +66,4 @@ function validAmound(amound) {
 
 exports.deleteProduct = deleteProduct;
 exports.editProduct = editProduct;
-exports.addProduct =addProduct;
+exports.addProduct = addProduct;

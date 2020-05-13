@@ -198,6 +198,7 @@ app.post('/loginverify', (req, res) => {
       userInf.id = result.user.id;
       userInf.username = result.user.username;
       userInf.type = result.user.type;
+      // eslint-disable-next-line eqeqeq
       if (userInf.type == 'admin') {
         res.redirect('/adminpage');
       } else {
@@ -244,6 +245,7 @@ app.get('/reportpage', (req, res) => {
 });
 app.post('/dayrep', (req, res) => {
   orderTable.getOrderByDate(req.body.reportByDay, (result) => {
+    // eslint-disable-next-line eqeqeq
     if (result.length == 0) {
       res.render('reportmain', {
         massages: {
@@ -263,8 +265,10 @@ app.post('/dayrep', (req, res) => {
 
 
 app.post('/reportpage', (req, res) => {
+  // eslint-disable-next-line eqeqeq
   if (req.body.radio == 'day') {
     orderTable.getAllOrder((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
         res.render('reportmain', {
           massages: {
@@ -280,8 +284,10 @@ app.post('/reportpage', (req, res) => {
         });
       }
     });
+    // eslint-disable-next-line eqeqeq
   } else if (req.body.radio == 'ptype') {
     incomeByTape.getIncomeBtType((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
         res.render('reportmain', { error: 'user ' });
       } else {
@@ -294,8 +300,10 @@ app.post('/reportpage', (req, res) => {
         });
       }
     });
+    // eslint-disable-next-line eqeqeq
   } else if (req.body.radio == 'ctype') {
     orderTable.getAllOrder((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
         res.render('reportmain', {
           massages: {

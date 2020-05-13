@@ -10,6 +10,7 @@ function getAllAvailableProducts(callBackFunction) {
 function filterProducts(products, attr, keyword) {
 	const filtered = [];
 	keyword = keyword.toLowerCase();
+	// eslint-disable-next-line no-plusplus
 	for (let i = 0; i < products.length; ++i) {
 		const val = products[i][attr].toLowerCase();
 		if (val.includes(keyword)) {
@@ -21,6 +22,7 @@ function filterProducts(products, attr, keyword) {
 
 function getAvailableProducts(products) {
 	const res = [];
+	// eslint-disable-next-line no-plusplus
 	for (let i = 0; i < products.length; ++i) {
 		if (products[i].quantity > 0) {
 			res.push(products[i]);
@@ -30,7 +32,9 @@ function getAvailableProducts(products) {
 }
 
 function findIndexProducdID(products, id) {
+	// eslint-disable-next-line no-plusplus
 	for (let i = 0; i < products.length; ++i) {
+		// eslint-disable-next-line eqeqeq
 		if (products[i].id == id) {
 			return i;
 		}

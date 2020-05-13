@@ -42,6 +42,7 @@ function loginV(username, password, callBackFunction) {
 
 // eslint-disable-next-line camelcase
 function pswVarify(reqPassword, resultPassword) {
+  // eslint-disable-next-line eqeqeq
   if (reqPassword != resultPassword) { return 0; }
   return 1;
 }

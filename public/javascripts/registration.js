@@ -7,6 +7,7 @@ const createUser = function (req, callBackFunction) {
   let errors = {};
   // eslint-disable-next-line no-undef
   users.getUserByUserName(req.body.username, (userFromDb) => {
+    // eslint-disable-next-line eqeqeq
     if (userFromDb.length != 0) {
       errors.username = 'A selected username already exists';
     }
@@ -58,6 +59,7 @@ function validation(req) {
   validName(req.body.name, errors);
   // eslint-disable-next-line no-use-before-define
   validLastname(req.body.lastName, errors);
+  // eslint-disable-next-line eqeqeq
   if (req.body.studentID != '') {
     // eslint-disable-next-line no-use-before-define
     validStudentID(req.body.studentID, errors);

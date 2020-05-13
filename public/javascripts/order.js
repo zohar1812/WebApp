@@ -33,6 +33,7 @@ function createDate() {
 const addProductToCart = function addProductToCart(orderID, productID, amount, callBackFunction) {
   productTable.getProductByID(productID, (result) => {
     orderProductTable.getProductsByproductId(productID, orderID, (productFromCart) => {
+      // eslint-disable-next-line eqeqeq
       if(productFromCart != 0){
         const newAmount = Number(amount) + Number(productFromCart[0].quantity);
         const newTotalPrice = newAmount*result[0].price;
