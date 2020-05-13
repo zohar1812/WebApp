@@ -57,6 +57,7 @@ const removeOrder = function removeOrder(orderId) {
 
 const getCoundOrder = function getCoundOrder(callBackFunction) {
   const sql = 'SELECT COUNT(*) as total FROM Orders';
+  // eslint-disable-next-line no-unused-vars
   const query = config.connection.query(sql, (err, result) => {
     if (err) throw err;
     console.log(result);
