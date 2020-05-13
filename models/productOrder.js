@@ -29,7 +29,7 @@ const addProductToCart = function addProductToCart(productInCard) {
 
 const uptadeAmountInCard = function uptadeProductInCard(productId, cardId, newAmount, newTotalPrice)
 {
-  const sql = `update OrderProducts SET totalPrice='${newAmount}',quantity='${newTotalPrice}' WHERE productId ='${productId}'AND orderId='${cardId}'`;
+  const sql = `update OrderProducts SET totalPrice='${newTotalPrice}',quantity='${newAmount}' WHERE productId ='${productId}'AND orderId='${cardId}'`;
   // eslint-disable-next-line no-undef
   const query = config.connection.query(sql, (err, results) => {
     if (err) throw err;
