@@ -31,13 +31,15 @@ function createDate() {
 }
 
 const addProductToCart = function addProductToCart(orderID, productID, amount, callBackFunction) {
-  orderProductTable.getProductsByproductId(productID, orderID, (productFromCart) => {
-    if (productFromCart != 0) {
-      orderProductTable.uptadeAmountInCard(Number(productID), Number(orderID),
-        Number(amount) + Number(productFromCart[0].quantity));
-      callBackFunction();
-    } else {
-      productTable.getProductByID(productID, (result) => {
+  productTable.getProductByID(productID, (result) => {
+    orderProductTable.getProductsByproductId(productID, orderID, (productFromCart) => {
+      if(productFromCart != 0){
+        const newAmount = Number(amount) + Number(productFromCart[0].quantity);
+        const newTotalPrice = newAmount*result[0].price;
+        orderProductTable.uptadeAmountInCard(Number(productID), Number(orderID),
+          newAmount,newTotalPrice);
+      }
+      else{
         const data = {
           orderId: Number(orderID),
           productId: Number(productID),
@@ -47,9 +49,9 @@ const addProductToCart = function addProductToCart(orderID, productID, amount, c
           name: result[0].name,
         };
         orderProductTable.addProductToCart(data);
-        callBackFunction();
-      });
-    }
+      }
+      callBackFunction();
+    });
   });
 };
 
