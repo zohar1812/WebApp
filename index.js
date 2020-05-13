@@ -16,7 +16,6 @@ const orderProductTable = require('./models/productOrder');
 const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
-const config = require('./config.js');
 
 const app = express();
 let cartID = 0;
@@ -53,6 +52,7 @@ app.get('/sorted/:attr', (req, res) => {
 
 app.post('/filter', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
+    // eslint-disable-next-line no-param-reassign
     result = toMainPage.filterProducts(result, req.body.parameter, req.body.keyword);
     res.render('home', { products: result });
   });
@@ -114,15 +114,15 @@ app.post('/save', (req, res) => {
 
 app.get('/forgot/user', (req, res) => {
   res.render('forgot-password-username', {
-    errors:{},
+    errors: {},
   });
 });
 app.post('/forgot/user', (req, res) => {
   rec.recover(req, (result) => {
     if (result.user == null) {
-      res.render('forgot-password-username', result );
+      res.render('forgot-password-username', result);
     } else {
-      res.render('forgot-password-question',  result );
+      res.render('forgot-password-question', result);
     }
   });
 });
@@ -202,6 +202,7 @@ app.post('/loginverify', (req, res) => {
       if (userInf.type == 'admin') {
         res.redirect('/adminpage');
       } else {
+        // eslint-disable-next-line no-shadow
         orderAction.createCart(userInf.type, (result) => {
           cartID = result.orderId;
           orderProductTable.getProductsByOrderId(result.orderId, (productFromDB) => {
@@ -279,7 +280,7 @@ app.post('/reportpage', (req, res) => {
         res.render('reportmain', {
           messages: {
             titleday: 'report by product type',
-            dtype: result2,
+            dtype: result,
           },
         });
       }

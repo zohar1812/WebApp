@@ -3,6 +3,7 @@ const productOrderTable = require('../../models/productOrder');
 
 function UpdateQuantity(orderId) {
   productOrderTable.getProductsByOrderId(orderId, (productOrderFromDb) => {
+    // eslint-disable-next-line no-unused-vars
     let result;
     // eslint-disable-next-line eqeqeq
     if (productOrderFromDb.length == 0) {

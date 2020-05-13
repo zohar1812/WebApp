@@ -1,4 +1,3 @@
-const config = require('../../config');
 const users = require('../../models/users');
 const psw = require('./password');
 

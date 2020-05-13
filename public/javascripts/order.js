@@ -9,6 +9,7 @@ const createCart = function createCart(userType, callBackFunction) {
     data = {
       orderId: result + 1,
       consumer_type: userType,
+      // eslint-disable-next-line no-use-before-define
       date: createDate(),
       total_price: 0,
     };
@@ -34,13 +35,12 @@ const addProductToCart = function addProductToCart(orderID, productID, amount, c
   productTable.getProductByID(productID, (result) => {
     orderProductTable.getProductsByproductId(productID, orderID, (productFromCart) => {
       // eslint-disable-next-line eqeqeq
-      if(productFromCart != 0){
+      if (productFromCart != 0) {
         const newAmount = Number(amount) + Number(productFromCart[0].quantity);
-        const newTotalPrice = newAmount*result[0].price;
+        const newTotalPrice = newAmount * result[0].price;
         orderProductTable.uptadeAmountInCard(Number(productID), Number(orderID),
-          newAmount,newTotalPrice);
-      }
-      else{
+          newAmount, newTotalPrice);
+      } else {
         const data = {
           orderId: Number(orderID),
           productId: Number(productID),

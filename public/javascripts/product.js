@@ -32,9 +32,9 @@ function updateProductAmound(productID, newAmound, message) {
   }
 }
 
-function addProduct(reqBody){
+function addProduct(reqBody) {
   productTable.getCoundProduct((result) => {
-    let data = {
+    const data = {
       id: result + 1,
       name: reqBody.name,
       picture: reqBody.picture,
@@ -47,8 +47,6 @@ function addProduct(reqBody){
     productTable.addNewProduct(data);
   });
 }
-
-
 
 
 function deleteProduct(productID) {
