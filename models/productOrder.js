@@ -27,14 +27,15 @@ const addProductToCart = function addProductToCart(productInCard) {
   });
 };
 
-const uptadeAmountInCard = function uptadeAmountInCard(productId, cardId, newAmount) {
-  const sql = `update OrderProducts SET quantity='${newAmount}' WHERE productId ='${productId}'AND orderId='${cardId}'`;
+const uptadeAmountInCard = function uptadeProductInCard(productId, cardId, newAmount, newTotalPrice)
+{
+  const sql = `update OrderProducts SET totalPrice='${newAmount}',quantity='${newTotalPrice}' WHERE productId ='${productId}'AND orderId='${cardId}'`;
   // eslint-disable-next-line no-undef
   const query = config.connection.query(sql, (err, results) => {
     if (err) throw err;
-    console.log(results.affectedRows + " record(s) updated");
   });
 };
+
 
 const removeProductFromCard = function removeProductFromCard(productId, cardId) {
   const sql = `DELETE from OrderProducts where productId ='${productId}'AND orderId='${cardId}`;
