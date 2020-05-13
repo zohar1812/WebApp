@@ -114,22 +114,16 @@ app.post('/save', (req, res) => {
 
 app.get('/forgot/user', (req, res) => {
   res.render('forgot-password-username', {
-    errors: {
-    },
+    errors:{},
   });
 });
 app.post('/forgot/user', (req, res) => {
   rec.recover(req, (result) => {
-    res.render('forgot-password-question', {
-      title: 'user',
-      user: {
-        id: result.user.id,
-        username: result.user.username,
-        ans: result.user.ans,
-      },
-      messages: {
-      },
-    });
+    if (result.user == null) {
+      res.render('forgot-password-username', result );
+    } else {
+      res.render('forgot-password-question',  result );
+    }
   });
 });
 
@@ -141,7 +135,7 @@ app.post('/forgot/question/user/:id', (req, res) => {
         username: req.body.username,
         id: req.params.id,
       },
-      messages: {
+      errors: {
       },
     });
   } else {
@@ -151,8 +145,8 @@ app.post('/forgot/question/user/:id', (req, res) => {
         id: req.params.id,
         ans: req.body.usersans,
       },
-      messages: {
-        error: 'The answer is wrong',
+      errors: {
+        ans: 'The answer is wrong',
       },
     });
   }
@@ -166,8 +160,8 @@ app.post('/forgot/reset/user/:id', (req, res) => {
         id: req.params.id,
         ans: req.body.ans,
       },
-      messages: {
-        error: errors.password,
+      errors: {
+        ans: errors.password,
       },
     });
   } else {
