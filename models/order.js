@@ -7,6 +7,13 @@ const addOrder = function addOrder(order){
     return true;
   });
 }
+const getAllOrder = function getAllOrder(callBackFunction) {
+  const sql = 'SELECT * FROM Orders';
+  const query = config.connection.query(sql, (err, result) => {
+    if (err) throw err;
+    callBackFunction(result);
+  });
+}
 
 const getOrderById = function getOrderById(orderId, callBackFunction){
   const sql = `Select * from Orders where orderId ='${orderId}'`;
@@ -55,3 +62,4 @@ exports.getOrderByCustomerType = getOrderByCustomerType;
 exports.getOrderByDate = getOrderByDate;
 exports.removeOrder = removeOrder;
 exports.getCoundOrder = getCoundOrder;
+exports.getAllOrder = getAllOrder ;

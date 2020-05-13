@@ -31,21 +31,28 @@ function createDate() {
 }
 
 const addProductToCart = function addProductToCart(orderID, productID, amount, callBackFunction) {
-  productTable.getProductByID(productID, (result) => {
-    const data = {
-      orderId: Number(orderID),
-      productId: Number(productID),
-      quantity: Number(amount),
-      totalPrice: amount * result[0].price,
-      picture : result[0].picture,
-      name: result[0].name,
-    };
-    orderProductTable.addProductToCart(data);
-    callBackFunction();
+  orderProductTable.getProductsByproductId(productID, orderID, (productFromCart) => {
+    if (productFromCart != 0) {
+      orderProductTable.uptadeAmountInCard(Number(productID), Number(orderID),
+        Number(amount) + Number(productFromCart[0].quantity));
+      callBackFunction();
+    } else {
+      productTable.getProductByID(productID, (result) => {
+        const data = {
+          orderId: Number(orderID),
+          productId: Number(productID),
+          quantity: Number(amount),
+          totalPrice: amount * result[0].price,
+          picture: result[0].picture,
+          name: result[0].name,
+        };
+        orderProductTable.addProductToCart(data);
+        callBackFunction();
+      });
+    }
   });
 };
 
 
 exports.createCart = createCart;
 exports.addProductToCart = addProductToCart;
-

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/stylesheets/payment.css"/>
+
+    <!--Mobile view-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SuperSami Online Store</title>
+  </head>
+<div class="body-text"></div>
+<script>
+
+    function validateForm() {
+      var x = document.forms["paymentForm"]["number"].value;
+      if (x.length<16) {
+        alert("Please put full card number");
+        return false;
+      }
+      x = document.forms["paymentForm"]["ccv"].value;
+      if(x.length<3){
+        alert("Please enter full CCV");
+        return false;
+      }
+      x = document.forms["paymentForm"]["phone"].value;
+      if(x.length<10){
+        alert("Please fill full phone number");
+        return false;
+      }
+      x = document.forms["paymentForm"]["expiry"].value;
+      if(x.length!=5){
+        alert("Please fill expiry date in MM/YY format");
+        return false;
+      }
+      var today=new Date()
+      if(+x.slice(3,5)<20){
+        alert("Card expired");
+        return false;
+      }
+      if (+x.slice(0,2)<5 && +x.slice(5,7)==20){
+        alert("Card expired");
+        return false;
+      }
+      src='public\javascripts\payment.js'
+
+
+    }
+    </script>
+<form name="paymentForm"  onsubmit="return validateForm()" method="post">
+    <div class="form-container">
+      <div class="personal-information">
+        <h1>Payment Information</h1>
+      </div> <!-- end of personal-information -->
+
+        <input pattern="[a-zA-Z]+" id="column-left" type="text" name="first-name" required="required" placeholder="First Name"/>
+          <input pattern="[a-zA-Z]+" id="column-right" type="text" name="last-name" required="required" placeholder="Surname"/>
+          <input pattern="[0-9]+" id="input-field" type="text" name="number" required="required" placeholder="Card Number" maxlength="16"/>
+          <input pattern="([0-9]{2}[/]?){2}" id="column-left" type="text" name="expiry" required="required" maxlength="5" placeholder="MM / YY"/>
+          <input pattern="[0-9]+" id="column-right" type="text" name="ccv" required="required"  maxlength="3" placeholder="CCV"/>
+
+          <input id="input-field" id="column-right" type="text" name="phone" required="required" autocomplete="on" maxlength="10" placeholder="Phone Number"/>
+
+          <input id="input-field" id="column-left" type="text" name="streetaddress" required="required" autocomplete="on" maxlength="45" placeholder="Streed Address"/>
+          <input pattern="[a-zA-Z]+" id="column-left" type="text" name="city" required="required" autocomplete="on" maxlength="20" placeholder="City"/>
+          <input pattern="[0-9]+"id="column-right" type="text" name="zipcode" required="required" autocomplete="on" pattern="[0-9]*" maxlength="5" placeholder="ZIP code"/>
+          <input id="input-field" type="email" name="email" required="required" autocomplete="on" maxlength="40" placeholder="Email"/>
+          <input id="input-button" type="submit" value="Submit"/>
+      </div>
+    </form>
+
+
+
+	<!--End paragraph-->
+	<p id="endPar">All rights reserved SuperSami 2020</p>
+
+</body>
+</html>

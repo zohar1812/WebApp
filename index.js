@@ -14,6 +14,8 @@ const productAction = require('./public/javascripts/product');
 const orderAction = require('./public/javascripts/order');
 const orderProductTable = require('./models/productOrder');
 const orderTable = require('./models/order');
+const paymentAction = require('./public/javascripts/payment');
+const incomeByTape = require('./models/incomeByType');
 const config = require('./config.js');
 
 const app = express();
@@ -203,7 +205,7 @@ app.post('/loginverify', (req, res) => {
       userInf.username = result.user.username;
       userInf.type = result.user.type;
       if (userInf.type == 'admin') {
-        res.render('/adminpage');
+        res.redirect('/adminpage');
       } else {
         orderAction.createCart(userInf.type, (result) => {
           cartID = result.orderId;
@@ -227,6 +229,97 @@ app.post('/cart/add/:cartId/:productId', (req, res) => {
           res.redirect('/');
         });
     });
+});
+
+app.get('/payment/:cartId', (req, res) => {
+  res.render('payment');
+});
+app.post('/payment/:cartId', (req, res) => {
+  paymentAction.UpdateQuantity(Number(req.params.cartId));
+  res.redirect('/endPurchas');
+});
+app.get('/endPurchas', (req, res) => {
+  res.render('endPurchas');
+});
+
+app.get('/reportpage', (req, res) => {
+  res.render('reportmain', {
+    messages: {
+    },
+  });
+});
+app.post('/dayrep', (req, res) => {
+  orderTable.getOrderByDate(req.body.reportByDay, (result) => {
+    if (result.length == 0) {
+      res.render('reportmain', {
+        massages: {
+          error: 'user ',
+        },
+      });
+    } else {
+      res.render('reportmain', {
+        messages: {
+          titleday: 'report by dat',
+          dtype: result,
+        },
+      });
+    }
+  });
+});
+
+
+app.post('/reportpage', (req, res) => {
+  if (req.body.radio == 'day') {
+    orderTable.getAllOrder((result) => {
+      if (result.length == 0) {
+        res.render('reportmain', {
+          massages: {
+            error: 'user ',
+          },
+        });
+      } else {
+        res.render('reportmain', {
+          messages: {
+            titleday: 'report by product type',
+            dtype: result2,
+          },
+
+        });
+      }
+    });
+  } else if (req.body.radio == 'ptype') {
+    incomeByTape.getIncomeBtType((result) => {
+      if (result.length == 0) {
+        res.render('reportmain', { error: 'user ' });
+      } else {
+        res.render('reportmain', {
+          messages: {
+            title: 'report by product type',
+            body: result,
+          },
+
+        });
+      }
+    });
+  } else if (req.body.radio == 'ctype') {
+    orderTable.getAllOrder((result) => {
+      if (result.length == 0) {
+        res.render('reportmain', {
+          massages: {
+            error: 'user ',
+          },
+        });
+      } else {
+        res.render('reportmain', {
+          messages: {
+            title: 'report by product type',
+            ctype: result,
+          },
+
+        });
+      }
+    });
+  }
 });
 
 app.listen(3000, () => {

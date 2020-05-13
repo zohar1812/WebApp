@@ -27,7 +27,7 @@
 				<ul class="nav navbar-nav">
 
 					<li><a href="/adminpage">Admin Page</a></li>
-					<li><a href="#">Reports</a></li>
+					<li><a href="/reportpage">Reports</a></li>
                     <li><a href="/add/product">Add Product</a></li>
 				</ul>
 			</div>
@@ -46,58 +46,6 @@
         </div>
 			</div>
 	</div>
-
-
-      <!-- Edit Products -->
-    <div class="container edit-add-container">
-      <div class="col-md-4 col-xs-4 text-left">
-        <form action="/edit" method="POST" class="navbar-form navbar-left">
-          <input type="text" name="id" class="form-control" placeholder="Enter product ID">
-          <select class="selectpicker" data-style="btn-info" name="parameter">
-            <optgroup label="Select parameter to edit:">
-                <option name="table1" value="name">Name</option>
-                <option name="table2" value="price">Price</option>
-                <option name="table3" value="quantity">Quantity</option>
-                <option name="table4" value="brand">Brand</option>
-                <option name="table5" value="category">Category</option>
-                <option name="table6" value="description">Description</option>
-            </optgroup>
-        </select>
-          <input type="text" name="val" class="form-control" placeholder="Enter new value">
-          <button type="submit" class="btn btn-primary">Edit</button>
-        </form>
-      </div>
-
-      <!-- Add Products -->
-      <div class="col-md-4 col-xs-4 text-center">
-        <form action="/add" method="POST" class="navbar-form navbar-left">
-          <input type="text" name="id" class="form-control" placeholder="Enter product ID">
-          <select class="selectpicker" data-style="btn-info" name="category">
-            <optgroup label="Select category">
-                <option name="table1" value="meat">Meat</option>
-                <option name="table2" value="dairy">Dairy</option>
-                <option name="table3" value="other">Other</option>
-            </optgroup>
-        </select>
-          <input type="text" name="name" class="form-control" placeholder="Enter name">
-          <input type="text" name="price" class="form-control" placeholder="Enter price">
-          <input type="text" name="quantity" class="form-control" placeholder="Enter quantity">
-          <input type="text" name="picture" class="form-control" placeholder="Enter picture URL">
-          <input type="text" name="brand" class="form-control" placeholder="Enter brand">
-          <input type="text" name="description" class="form-control" placeholder="Enter description">
-          <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-      </div>
-
-
-      <!-- Remove Products -->
-      <div class="col-md-4 col-xs-4 text-center">
-        <form action="/remove" method="POST" class="navbar-form navbar-left">
-          <input type="text" name="id" class="form-control" placeholder="Enter product ID">
-          <button type="submit" class="btn btn-danger">Remove</button>
-        </form>
-      </div>
-    </div>
 
 
 	<!--Show All The Product from the Database-->

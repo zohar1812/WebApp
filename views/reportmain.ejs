@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SuperSami Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.10.6/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/stylesheets/reportmain.css"/>
+    <script>
+      $(document).ready(function(){
+        $("#c_TypeInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#orderTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+
+
+</head>
+<body>
+<br>
+<br>
+<br>
+<h1 style="text-align: center">Please Choose Report View:</h1>
+<div class="reportbox">
+    <form action="/reportpage" method="post" id="reportchoose">
+        <label class="container">Day
+            <input type="radio" checked="checked" name="radio" value="day">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Product type
+            <input type="radio" name="radio" value="ptype">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Consumer type
+            <input type="radio" name="radio" value="ctype">
+            <span class="checkmark"></span>
+        </label>
+        <input type="submit" name=" " value="Submit">
+    </form>
+</div>
+<% if (messages.error) { %>
+
+<% } %>
+<% if (messages.dtype) { %>
+    <div class="reportf">
+        <form action="/dayrep" method="post" >
+            <h2 style="text-align: center">Report :</h2><br>
+            <input type="date" id="repoday" name="reportByDay"  data-date-format="YYYY-MM-DD">
+            <input type="submit" name=" " >
+            <table >
+                <tbody><thead>
+                <tr>
+                    <th>Consumer Type</th>
+                    <th>Purchase day</th>
+                    <th>Total Payment</th>
+                    <th>Order Id</th>
+                </tr>
+                </thead>
+                <% (messages.dtype).forEach(function(tmp1){ %>
+                    <tr>
+                        <td><%= tmp1.consumer_type %></td>
+                        <td><%= tmp1.date %></td>
+                        <td><%= tmp1.total_price %></td>
+                        <td><%= tmp1.orderId %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+
+<% } %>
+<% if (messages.body) { %>
+    <div class="reportf">
+        <br>
+        <h2 style="text-align: center">Report :</h2>
+        <table >
+            <tbody><thead>
+            <tr>
+                <th>Category</th>
+                <th>Total Income</th>
+            </tr>
+            </thead>
+            <% (messages.body).forEach(function(tmp){ %>
+                <tr>
+                    <td><%= tmp.ptype %></td>
+                    <td><%= tmp.total_income %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+<% } %>
+<% if (messages.ctype) { %>
+    <div class="reportf">
+        <!--                <select id="consumertype" name="ctype" form="reportchoose" onchange="check_consumerType()">-->
+        <!--                    <option value="default" >Type</option>-->
+        <!--                    <option value="student">Student</option>-->
+        <!--                    <option value="regular">Regular</option>-->
+        <!--                </select>-->
+        <input id="c_TypeInput" type="text" placeholder="Student/Regular">
+        <br><br>
+        <h2 style="text-align: center">Report :</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Consumer Type</th>
+                <th>Purchase day</th>
+                <th>Total Payment</th>
+                <th>Order Id</th>
+            </tr>
+            </thead>
+            <tbody id="orderTable">
+            <% (messages.ctype).forEach(function(tmp){ %>
+                <tr>
+                    <td><%= tmp.consumer_type %></td>
+                    <td><%= tmp.date %></td>
+                    <td><%= tmp.total_price %></td>
+                    <td><%= tmp.orderId %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+
+<% } %>
+</body>
+</html>
