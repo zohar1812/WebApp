@@ -5,9 +5,11 @@ function editProduct(productID, reqBody) {
   const message = {};
   // eslint-disable-next-line eqeqeq
   if (reqBody.parameter == 'price') {
+    // eslint-disable-next-line no-use-before-define
     updateProductPrice(productID, Number(reqBody.val), message);
     // eslint-disable-next-line eqeqeq
   } else if (reqBody.parameter == 'quantity') {
+    // eslint-disable-next-line no-use-before-define
     updateProductAmound(productID, Number(reqBody.val), message);
   } else {
     message.error = 'No change was entered';
@@ -16,18 +18,24 @@ function editProduct(productID, reqBody) {
 }
 
 function updateProductPrice(productID, newPrice, message) {
+  // eslint-disable-next-line no-use-before-define
   if (validPrice(newPrice)) {
     productTable.uptadePriceOfProduct(productID, newPrice);
+    // eslint-disable-next-line no-param-reassign
     message.success = 'success update price';
   } else {
+    // eslint-disable-next-line no-param-reassign
     message.error = 'Invalid price';
   }
 }
 function updateProductAmound(productID, newAmound, message) {
+  // eslint-disable-next-line no-use-before-define
   if (validAmound(newAmound)) {
     productTable.updateAmountOfProduct(productID, newAmound);
+    // eslint-disable-next-line no-param-reassign
     message.success = 'success update amound';
   } else {
+    // eslint-disable-next-line no-param-reassign
     message.error = 'Invalid amound';
   }
 }

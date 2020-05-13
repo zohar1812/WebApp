@@ -19,7 +19,7 @@ function ready() {
   }
 
   const quantityInputs = document.getElementsByClassName('cart-quantity-input');
-  // eslint-disable-next-line no-var,block-scoped-var,vars-on-top,no-plusplus
+  // eslint-disable-next-line no-var,block-scoped-var,vars-on-top,no-plusplus,no-redeclare
   for (var i = 0; i < quantityInputs.length; i++) {
     // eslint-disable-next-line block-scoped-var
     const input = quantityInputs[i];
@@ -82,6 +82,7 @@ function updateCartTotal() {
   const cartItemContainer = document.getElementsByClassName('cart-items')[0];
   const cartRows = cartItemContainer.getElementsByClassName('cart-row');
   let total = 0;
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < cartRows.length; i++) {
     const cartRow = cartRows[i];
     const priceElement = cartRow.getElementsByClassName('cart-price')[0];
