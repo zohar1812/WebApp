@@ -141,8 +141,10 @@
 						<p class="shop-item-description">Description: <%= products[i].description %></p>
 						<p class="shop-item-category">Category: <%= products[i].category %></p>
 					<form action="/cart/add/<%= cart %>/<%= products[i].id %>" method="POST">
+						<% if(user.type) { %>
 						<button type="submit" class="btn btn-primary shop-item-button" role="button">Add to Cart</button>
 						<input type="text" name="amaount" class="form-control" placeholder="Enter quantity">
+						<%} %>
 					</form>
 				</div>
 		  	</div>
