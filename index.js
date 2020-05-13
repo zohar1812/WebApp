@@ -283,7 +283,6 @@ app.post('/reportpage', (req, res) => {
             titleday: 'report by product type',
             dtype: result2,
           },
-
         });
       }
     });
