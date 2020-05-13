@@ -24,6 +24,7 @@ function registrationUser(req) {
   if (!isEmpty(errors)) {
     return { errors };
   }
+  // eslint-disable-next-line eqeqeq
   if (req.body.studentID != '') {
     data = {
       id: req.body.ID,

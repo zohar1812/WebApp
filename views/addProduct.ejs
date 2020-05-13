@@ -5,7 +5,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/stylesheets/styles.css"/>
-    <script src="/javascripts/store.js"></script>
     <!--Mobile view-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SuperSami Online Store</title>
@@ -22,12 +21,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">SuperSami</a>
+            <a href="#" class="navbar-brand">SuperSami</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-nav-demo">
+            <ul class="nav navbar-nav">
+                <li><a href="//adminpage">Admin Page</a></li>
+                <li><a href="/reportpage">Reports</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/registration">Sign Up <i class="fas fa-user-plus"></i></a></li>
-                <li><a href="/login">Login <i class="fas fa-user"></i></a></li>
+                <li><a href="/adminpage">Back <i class="fas fa-user-plus"></i></a></li>
             </ul>
         </div>
     </div>
@@ -35,7 +37,7 @@
 <!--navbar end-->
 
 <!--Crousel -->
-<div class="container-fluid">
+<div class="container-fluid no-padding">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -76,24 +78,32 @@
 <div class="container">
     <div class="col-lg-12">
         <div id="content">
-            <h3>Forgot Password</h3>
+            <h3>Edit Product</h3>
             <hr>
         </div>
     </div>
 </div>
-<div class="container">
-    <form action="/forgot/reset/user/<%= user.id%>"  method="post">
-        <div class="form-group">
-            <input type="hidden" id="name" name="username" value=<%=user.username%>>
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter new password" name="password" required>
-            <% if (messages.error) { %>
-                <div class="alert alert-danger" role="alert"><%- messages.error %></div>
-            <% } %>
-        </div>
-        <button type="submit" class="btn btn-primary">Ok</button>
+
+
+<!-- Add Products -->
+<div class="col-md-4 col-xs-4 text-center">
+    <form action="/add/product" method="POST" class="navbar-form navbar-left">
+        <input type="text" name="id" class="form-control" placeholder="Enter product ID">
+        <select class="selectpicker" data-style="btn-info" name="category">
+            <optgroup label="Select category">
+                <option name="table1" value="meat">Meat</option>
+                <option name="table2" value="dairy">Dairy</option>
+                <option name="table3" value="other">Other</option>
+            </optgroup>
+        </select>
+        <input type="text" name="name" class="form-control" placeholder="Enter name">
+        <input type="text" name="price" class="form-control" placeholder="Enter price">
+        <input type="text" name="quantity" class="form-control" placeholder="Enter quantity">
+        <input type="text" name="picture" class="form-control" placeholder="Enter picture URL">
+        <input type="text" name="brand" class="form-control" placeholder="Enter brand">
+        <input type="text" name="description" class="form-control" placeholder="Enter description">
+        <button type="submit" class="btn btn-primary">Add</button>
     </form>
-    <a href="/login" class="btn btn-sm btn-primary">Back to login</a>
 </div>
 
 
