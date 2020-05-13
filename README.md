@@ -46,7 +46,3 @@ Add here credits. Project inspired by..., based on...
 
 ## Contact 🤝
 Feel free to contact us!
-* Sort and filter Products by any parameter and keyword!
-* Add products to the cart and purechase!
-* Password recovery!
-* Managing products by the Admi and reports!

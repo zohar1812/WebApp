@@ -107,6 +107,8 @@
             <label for="name">Student ID:</label>
             <input type="text" class="form-control" id="pwd" placeholder="Enter student ID" name="studentID" >
         </div>
+        <label for="img">Select student image:</label>
+        <input type="file" id="img" name="img" accept="image/*">
         <% if (errors.studentID) { %>
             <div class="alert alert-danger" role="alert"><%- errors.studentID %></div>
         <% } %>
