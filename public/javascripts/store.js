@@ -1,20 +1,29 @@
+// eslint-disable-next-line eqeqeq
 if (document.readyState == 'loading') {
+  // eslint-disable-next-line no-use-before-define
   document.addEventListener('DOMContentLoaded', ready);
 } else {
+  // eslint-disable-next-line no-use-before-define
   ready();
 }
 
 function ready() {
+  // eslint-disable-next-line no-var
   var addToCartButtons = document.getElementsByClassName('shop-item-button');
-  // eslint-disable-next-line vars-on-top
+  // eslint-disable-next-line vars-on-top,no-var,block-scoped-var,no-plusplus
   for (var i = 0; i < addToCartButtons.length; i++) {
+    // eslint-disable-next-line block-scoped-var
     var button = addToCartButtons[i];
+    // eslint-disable-next-line no-use-before-define,block-scoped-var
     button.addEventListener('click', addToCartClicked);
   }
 
   const quantityInputs = document.getElementsByClassName('cart-quantity-input');
+  // eslint-disable-next-line no-var,no-redeclare,block-scoped-var,no-plusplus
   for (var i = 0; i < quantityInputs.length; i++) {
+    // eslint-disable-next-line block-scoped-var
     const input = quantityInputs[i];
+    // eslint-disable-next-line no-use-before-define
     input.addEventListener('change', quantityChanged);
   }
 

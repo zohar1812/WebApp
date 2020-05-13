@@ -281,13 +281,16 @@ app.post('/reportpage', (req, res) => {
         res.render('reportmain', {
           messages: {
             titleday: 'report by product type',
+            // eslint-disable-next-line no-undef
             dtype: result2,
           },
         });
       }
     });
+    // eslint-disable-next-line eqeqeq
   } else if (req.body.radio == 'ptype') {
     incomeByTape.getIncomeBtType((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
         res.render('reportmain', { error: 'user ' });
       } else {
@@ -300,8 +303,10 @@ app.post('/reportpage', (req, res) => {
         });
       }
     });
+    // eslint-disable-next-line eqeqeq
   } else if (req.body.radio == 'ctype') {
     orderTable.getAllOrder((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
         res.render('reportmain', {
           massages: {

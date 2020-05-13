@@ -3,6 +3,7 @@ const productTable = require('../../models/products');
 
 function getAllAvailableProducts(callBackFunction) {
   productTable.getAllProducts((result) => {
+    // eslint-disable-next-line no-param-reassign
     result = getAvailableProducts(result);
     callBackFunction(result);
   });
@@ -11,7 +12,9 @@ function getAllAvailableProducts(callBackFunction) {
 
 function filterProducts(products, attr, keyword) {
   const filtered = [];
+  // eslint-disable-next-line no-param-reassign
   keyword = keyword.toLowerCase();
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < products.length; ++i) {
     const val = products[i][attr].toLowerCase();
     if (val.includes(keyword)) {
@@ -32,8 +35,11 @@ function getAvailableProducts(products) {
   return res;
 }
 
+// eslint-disable-next-line no-unused-vars
 function findIndexProducdID(products, id) {
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < products.length; ++i) {
+    // eslint-disable-next-line eqeqeq
     if (products[i].id == id) {
       return i;
     }
