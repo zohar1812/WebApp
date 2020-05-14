@@ -3,6 +3,7 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const http = require('http');
 // eslint-disable-next-line no-unused-vars
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
