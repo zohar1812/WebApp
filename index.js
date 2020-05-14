@@ -349,7 +349,13 @@ app.post('/reportpage', (req, res) => {
     });
   }
 });
-let server =app.listen(port){
-  var port = server.address().port;
+// let server = app.listen(port)
+// {
+//   let port = server.address().port;
+//   console.log("Express is working on port " + port);
+//
+// }
+let server = app.listen(port, function () {
+  let port = server.address().port;
   console.log("Express is working on port " + port);
-}
+});
