@@ -27,11 +27,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-function onRequest(request, response) {
-  response.writeHead(200, { 'content-Type': 'text/plain' });
-  response.write('hello word');
-  response.end();
-}
+// function onRequest(request, response) {
+//   response.writeHead(200, { 'content-Type': 'text/plain' });
+//   response.write('hello word');
+//   response.end();
+// }
 // toMainPage.getAllAvailableProducts();
 // eslint-disable-next-line no-undef
 // http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
@@ -350,4 +350,7 @@ app.post('/reportpage', (req, res) => {
     });
   }
 });
-app.listen(port)
+let server =app.listen(port){
+  var port = server.address().port;
+  console.log("Express is working on port " + port);
+}
