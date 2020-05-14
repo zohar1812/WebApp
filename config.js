@@ -15,6 +15,7 @@ const connection = mysql.createConnection({
   password: '4e9ac4e4',
   database: 'heroku_e0f01176dce3eaf',
 });
+
 connection.connect((error) => {
   if (error) console.log(error);
   else console.log('Database Connected!');

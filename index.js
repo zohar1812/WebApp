@@ -34,7 +34,10 @@ function onRequest(request, response) {
 }
 // toMainPage.getAllAvailableProducts();
 // eslint-disable-next-line no-undef
-http.createServer(onRequest).listen(8000);
+http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
+  // eslint-disable-next-line max-len
+  console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
+});
 // app.listen(process.env.PORT || 3000, function () {
 // eslint-disable-next-line max-len
 // console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
