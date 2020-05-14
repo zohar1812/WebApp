@@ -17,7 +17,7 @@ const orderProductTable = require('./models/productOrder');
 const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
-
+const port = process.env.Port || 3000
 const app = express();
 let cartID = 0;
 const userInf = {};
@@ -34,10 +34,10 @@ function onRequest(request, response) {
 }
 // toMainPage.getAllAvailableProducts();
 // eslint-disable-next-line no-undef
-http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
-  // eslint-disable-next-line max-len
-  console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
-});
+// http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
+//   // eslint-disable-next-line max-len
+//   console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
+// });
 // app.listen(process.env.PORT || 3000, function () {
 // eslint-disable-next-line max-len
 // console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
@@ -350,3 +350,4 @@ app.post('/reportpage', (req, res) => {
     });
   }
 });
+app.listen(port)
