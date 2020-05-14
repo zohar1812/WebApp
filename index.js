@@ -4,6 +4,7 @@ const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 // eslint-disable-next-line no-unused-vars
+const http = require('http');
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
 const loginToSys = require('./public/javascripts/loginUverify');
@@ -26,12 +27,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+function onRequest(request, response) {
+  response.writeHead(200, { 'content-Type': 'text/plain' });
+  response.write('hello word');
+  response.end();
+}
 // toMainPage.getAllAvailableProducts();
-
-app.listen(process.env.PORT || 3000, function () {
-  console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
-});
+// eslint-disable-next-line no-undef
+http.createServer(onRequest).listen(8000);
+// app.listen(process.env.PORT || 3000, function () {
+// eslint-disable-next-line max-len
+// console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
+// });
 // app.listen(8000, () => {
 //   console.log('Server is running at port 8000');
 // });
