@@ -29,6 +29,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // toMainPage.getAllAvailableProducts();
 
+app.listen(process.env.PORT || 3000, function () {
+  console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
+});
+// app.listen(8000, () => {
+//   console.log('Server is running at port 8000');
+// });
+
 app.get('/', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     res.render('home', {
@@ -332,8 +339,4 @@ app.post('/reportpage', (req, res) => {
       }
     });
   }
-});
-
-app.listen(3000, () => {
-  console.log('Server is running at port 8000');
 });
