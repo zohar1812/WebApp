@@ -3,7 +3,6 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
-const http = require('http');
 // eslint-disable-next-line no-unused-vars
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
@@ -17,7 +16,8 @@ const orderProductTable = require('./models/productOrder');
 const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
-const port = process.env.PORT || 3000
+
+const port = process.env.PORT || 3000;
 const app = express();
 let cartID = 0;
 const userInf = {};
@@ -36,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // eslint-disable-next-line no-undef
 // http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
 //   // eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 //   console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
 // });
 // app.listen(process.env.PORT || 3000, function () {
@@ -356,7 +357,7 @@ app.post('/reportpage', (req, res) => {
 //   console.log("Express is working on port " + port);
 //
 // }
-let server = app.listen(port, function () {
-  let port = server.address().port;
-  console.log("Express is working on port " + port);
+const server = app.listen(port, () => {
+  const { port } = server.address();
+  console.log(`Express is working on port ${port}`);
 });
