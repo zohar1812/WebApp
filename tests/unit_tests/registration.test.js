@@ -5,7 +5,7 @@ describe('Test name validation function', () => {
     const error = {};
     const name = 'avraham';
     registrationsFunc.validName(name, error);
-    expect(error).toBe({});
+    expect(error).toStrictEqual({});
   });
 
   it('Name is NOT only letters - (Invalid Test)', () => {
@@ -13,7 +13,7 @@ describe('Test name validation function', () => {
     const name = 'avraham1';
     registrationsFunc.validName(name, error);
     // eslint-disable-next-line no-undef
-    expect(errors.name).toStrictEqual('Name must contain only letters');
+    expect(error.name).toStrictEqual('Name must contain only letters');
   });
 });
 
@@ -22,7 +22,7 @@ describe('Test ID validation function (already ony numbers)', () => {
     const error = {};
     const id = '123456789';
     registrationsFunc.validID(id, error);
-    expect(error).toBe({});
+    expect(error).toStrictEqual({});
   });
 
   it('ID is NOT length of 9 - (Invalid Test)', () => {
