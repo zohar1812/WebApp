@@ -4,7 +4,6 @@ const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 // eslint-disable-next-line no-unused-vars
-const http = require('http');
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
 const loginToSys = require('./public/javascripts/loginUverify');
