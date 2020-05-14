@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
   port: '3306', // default port
   user: 'bdf19f661854fa',
   password: 'b41d055a',
-  database: `heroku_c242eafe9967244`,
+  database: 'heroku_c242eafe9967244',
 });
 connection.connect((error) => {
   if (error) console.log(error);
