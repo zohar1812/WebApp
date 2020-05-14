@@ -27,11 +27,11 @@ INSERT INTO users(id,name,lastName,username,password,type,ans) VALUES (749673972
                                                                        '567567Ad','admin', 'orange');
 
 CREATE TABLE Products (
-                          `id` INT(11) NOT NULL,
-                          `name` VARCHAR(150) NOT NULL,
-                          `picture` VARCHAR(750),
-                          `price` FLOAT(11) NOT NULL,
-                          `category` VARCHAR(150)
+`id` INT(11) NOT NULL,
+`name` VARCHAR(150) NOT NULL,
+`picture` VARCHAR(750),
+`price` FLOAT(11) NOT NULL,
+`category` VARCHAR(150)
 );
 
 ALTER TABLE Products
@@ -78,3 +78,25 @@ UPDATE Products SET description = "For microwave preparation 300g" WHERE id = 3;
 insert into Products values(4, "Hamburger", "https://www.kroger.com/product/images/xlarge/front/0001111000917",
                             50 ,"meat", 4, "Zoglovek", "Eight frozen beef burgers");
 
+CREATE TABLE Orders(
+`orderId` INT(11) NOT NULL,
+`consumer_type` VARCHAR(8) NOT NULL,
+`date` date,
+`total_price` FLOAT(11) NOT NULL,
+primary key (`orderId`)
+);
+
+CREATE TABLE OrderProducts (
+`orderId` INT(11) NOT NULL,
+`productId` VARCHAR(150) NOT NULL,
+ `quantity` INT(150),
+`totalPrice` FLOAT(11) NOT NULL,
+`picture` VARCHAR(750),
+`name` VARCHAR(150) NOT NULL,
+ primary key (`orderId`, `productId`)
+);
+
+CREATE TABLE IncomeByType(
+`ptype` VARCHAR(10) NOT NULL,
+`total_income` FLOAT(11) NOT NULL
+);
