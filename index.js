@@ -45,7 +45,12 @@ app.get('/sorted/:attr', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     // eslint-disable-next-line no-param-reassign
     toMainPage.availableProducts = result.sort((a, b) => (a[attr] > b[attr] ? 1 : -1));
-    res.render('home', { products: result });
+    res.render('home', {
+      user: userInf,
+      cart: cartID,
+      order: productOrder,
+      products: result,
+    });
   });
 });
 
@@ -54,7 +59,12 @@ app.post('/filter', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     // eslint-disable-next-line no-param-reassign
     result = toMainPage.filterProducts(result, req.body.parameter, req.body.keyword);
-    res.render('home', { products: result });
+    res.render('home', {
+      user: userInf,
+      cart: cartID,
+      order: productOrder,
+      products: result,
+    });
   });
 });
 

@@ -102,3 +102,5 @@ function isEmpty(obj) {
 }
 
 module.exports.createUser = createUser;
+exports.validName = validName;
+exports.validID = validID;
