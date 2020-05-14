@@ -299,11 +299,7 @@ app.post('/reportpage', (req, res) => {
     orderTable.getAllOrder((result) => {
       // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', {
-          massages: {
-            error: 'user ',
-          },
-        });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
@@ -318,7 +314,7 @@ app.post('/reportpage', (req, res) => {
     incomeByTape.getIncomeBtType((result) => {
       // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', { error: 'user ' });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
@@ -334,11 +330,7 @@ app.post('/reportpage', (req, res) => {
     orderTable.getAllOrder((result) => {
       // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', {
-          massages: {
-            error: 'user ',
-          },
-        });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
@@ -358,6 +350,7 @@ app.post('/reportpage', (req, res) => {
 //
 // }
 const server = app.listen(port, () => {
+  // eslint-disable-next-line no-shadow
   const { port } = server.address();
   console.log(`Express is working on port ${port}`);
 });
