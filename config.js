@@ -11,8 +11,8 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'eu-cdbr-west-03.cleardb.net', // check on your computer
   port: '3306', // default port
-  user: 'bdf19f661854fa',
-  password: 'b41d055a',
+  user: 'bd1fcc1b71587e',
+  password: '19a8684d',
   database: 'heroku_c242eafe9967244',
 });
 connection.connect((error) => {
