@@ -20,7 +20,7 @@ const getUserByUserName = function getUserByUserName(userName, callbackFunc) {
 
 const updateUserPassword = function updateUserPassword(userName, password) {
   const sql = `update users SET password='${password}' WHERE username ='${userName}'`;
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-undef,no-unused-vars
   const query = config.connection.query(sql, (err, results) => {
     if (err) throw err;
     return true;

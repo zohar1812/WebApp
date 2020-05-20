@@ -16,8 +16,8 @@ const orderProductTable = require('./models/productOrder');
 const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
-const config = require('./config.js');
 
+const port = process.env.PORT || 3000;
 const app = express();
 let cartID = 0;
 const userInf = {};
@@ -46,15 +46,26 @@ app.get('/sorted/:attr', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
     // eslint-disable-next-line no-param-reassign
     toMainPage.availableProducts = result.sort((a, b) => (a[attr] > b[attr] ? 1 : -1));
-    res.render('home', { products: result });
+    res.render('home', {
+      user: userInf,
+      cart: cartID,
+      order: productOrder,
+      products: result,
+    });
   });
 });
 
 
 app.post('/filter', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
+    // eslint-disable-next-line no-param-reassign
     result = toMainPage.filterProducts(result, req.body.parameter, req.body.keyword);
-    res.render('home', { products: result });
+    res.render('home', {
+      user: userInf,
+      cart: cartID,
+      order: productOrder,
+      products: result,
+    });
   });
 });
 
@@ -114,22 +125,16 @@ app.post('/save', (req, res) => {
 
 app.get('/forgot/user', (req, res) => {
   res.render('forgot-password-username', {
-    errors: {
-    },
+    errors: {},
   });
 });
 app.post('/forgot/user', (req, res) => {
   rec.recover(req, (result) => {
-    res.render('forgot-password-question', {
-      title: 'user',
-      user: {
-        id: result.user.id,
-        username: result.user.username,
-        ans: result.user.ans,
-      },
-      messages: {
-      },
-    });
+    if (result.user == null) {
+      res.render('forgot-password-username', result);
+    } else {
+      res.render('forgot-password-question', result);
+    }
   });
 });
 
@@ -141,7 +146,7 @@ app.post('/forgot/question/user/:id', (req, res) => {
         username: req.body.username,
         id: req.params.id,
       },
-      messages: {
+      errors: {
       },
     });
   } else {
@@ -151,8 +156,8 @@ app.post('/forgot/question/user/:id', (req, res) => {
         id: req.params.id,
         ans: req.body.usersans,
       },
-      messages: {
-        error: 'The answer is wrong',
+      errors: {
+        ans: 'The answer is wrong',
       },
     });
   }
@@ -166,8 +171,8 @@ app.post('/forgot/reset/user/:id', (req, res) => {
         id: req.params.id,
         ans: req.body.ans,
       },
-      messages: {
-        error: errors.password,
+      errors: {
+        ans: errors.password,
       },
     });
   } else {
@@ -204,9 +209,11 @@ app.post('/loginverify', (req, res) => {
       userInf.id = result.user.id;
       userInf.username = result.user.username;
       userInf.type = result.user.type;
+      // eslint-disable-next-line eqeqeq
       if (userInf.type == 'admin') {
         res.redirect('/adminpage');
       } else {
+        // eslint-disable-next-line no-shadow
         orderAction.createCart(userInf.type, (result) => {
           cartID = result.orderId;
           orderProductTable.getProductsByOrderId(result.orderId, (productFromDB) => {
@@ -250,6 +257,7 @@ app.get('/reportpage', (req, res) => {
 });
 app.post('/dayrep', (req, res) => {
   orderTable.getOrderByDate(req.body.reportByDay, (result) => {
+    // eslint-disable-next-line eqeqeq
     if (result.length == 0) {
       res.render('reportmain', {
         massages: {
@@ -269,20 +277,17 @@ app.post('/dayrep', (req, res) => {
 
 
 app.post('/reportpage', (req, res) => {
+  // eslint-disable-next-line eqeqeq
   if (req.body.radio == 'day') {
     orderTable.getAllOrder((result) => {
+      // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', {
-          massages: {
-            error: 'user ',
-          },
-        });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
             titleday: 'report by product type',
-            // eslint-disable-next-line no-undef
-            dtype: result2,
+            dtype: result,
           },
         });
       }
@@ -292,7 +297,7 @@ app.post('/reportpage', (req, res) => {
     incomeByTape.getIncomeBtType((result) => {
       // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', { error: 'user ' });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
@@ -308,11 +313,7 @@ app.post('/reportpage', (req, res) => {
     orderTable.getAllOrder((result) => {
       // eslint-disable-next-line eqeqeq
       if (result.length == 0) {
-        res.render('reportmain', {
-          massages: {
-            error: 'user ',
-          },
-        });
+        res.render('reportmain', { messages: { error: 'user ' } });
       } else {
         res.render('reportmain', {
           messages: {
@@ -325,7 +326,14 @@ app.post('/reportpage', (req, res) => {
     });
   }
 });
-
-app.listen(3000, () => {
-  console.log('Server is running at port 8000');
+// let server = app.listen(port)
+// {
+//   let port = server.address().port;
+//   console.log("Express is working on port " + port);
+//
+// }
+const server = app.listen(port, () => {
+  // eslint-disable-next-line no-shadow
+  const { port } = server.address();
+  console.log(`Express is working on port ${port}`);
 });

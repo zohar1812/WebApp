@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 const config = require('../../config');
 const users = require('../../models/users');
 const psw = require('./password');
@@ -104,3 +103,7 @@ function isEmpty(obj) {
 }
 
 module.exports.createUser = createUser;
+exports.validName = validName;
+exports.validID = validID;
+exports.validLastname = validLastname;
+exports.validStudentID = validStudentID;

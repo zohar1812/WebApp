@@ -9,12 +9,20 @@ function recover(req, callBackFunction) {
     // eslint-disable-next-line eqeqeq
     if (userFromDb.length === 0) {
       result = {
-        id: null,
-        error: 'No such user exists',
+        user: null,
+        errors: {
+          username: 'No such user exists',
+        },
       };
     } else {
       result = {
-        user: userFromDb[0],
+        user: {
+          id: userFromDb[0].id,
+          username: userFromDb[0].username,
+          ans: userFromDb[0].ans,
+        },
+        errors: {
+        },
       };
     }
     // eslint-disable-next-line no-undef
