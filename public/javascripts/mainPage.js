@@ -49,3 +49,5 @@ function findIndexProducdID(products, id) {
 
 exports.getAllAvailableProducts = getAllAvailableProducts;
 exports.filterProducts = filterProducts;
+exports.findIndexProducdID = findIndexProducdID;
+exports.getAvailableProducts = getAvailableProducts;

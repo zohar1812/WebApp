@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Super Sami Online</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"/>
-</head>
-<body>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="/stylesheets/styles.css"/>
+       <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"/> 
+        <!--Mobile view-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>SuperSami Online Store</title>
+    </head>
+    <body>
+        <!--nav bar start-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+                    <a href="/" class="navbar-brand">SuperSami</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-nav-demo">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/registration">Sign Up <i class="fas fa-user-plus"></i></a></li>
+                        <li><a href="/login">Login <i class="fas fa-user"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+      </nav>
+        <!--navbar end-->
+
+
+
+    
 <div class="loginbox">
     <h1 style="text-align: center">Login</h1>
     <form action="/loginverify" method="post">
@@ -16,8 +49,13 @@
 
         <input type="submit" name=" " value="Login">
         <a href="/forgot/user" >Forgot Password</a><br>
-        <a href="/registration">Sign In</a>
+        <a href="/registration">Sign Up</a>
     </form>
 </div>
+
+
+  <!--Boostramp JS & jquery scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
