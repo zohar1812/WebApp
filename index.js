@@ -3,6 +3,7 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 // eslint-disable-next-line no-unused-vars
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
@@ -27,6 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // toMainPage.getAllAvailableProducts();
 
@@ -259,15 +261,11 @@ app.post('/dayrep', (req, res) => {
   orderTable.getOrderByDate(req.body.reportByDay, (result) => {
     // eslint-disable-next-line eqeqeq
     if (result.length == 0) {
-      res.render('reportmain', {
-        massages: {
-          error: 'user ',
-        },
-      });
+      res.render('reportmain', { messages: { error: 'user ' } });
     } else {
       res.render('reportmain', {
         messages: {
-          titleday: 'report by dat',
+          titleday: 'report by product type',
           dtype: result,
         },
       });

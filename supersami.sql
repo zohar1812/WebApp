@@ -24,7 +24,12 @@ ALTER TABLE `users`
 COMMIT;
 
 INSERT INTO users(id,name,lastName,username,password,type,ans) VALUES (749673972, 'Lior', 'Plag', 'admin1',
-                                                                       '567567Ad','admin', 'orange');
+                                                                       'Sa123456','admin', 'orange');
+
+INSERT INTO users(id,name,lastName,username,password,type,ans) VALUES (749673973, 'yose', 'yose', 'regular',
+                                                                       'Sa123456','regular', 'orange');
+INSERT INTO users(id,name,lastName,username,password,type,ans) VALUES (749673974, 'sami', 'sami', 'student',
+                                                                       'Sa123456','student', 'orange');
 
 CREATE TABLE Products (
 `id` INT(11) NOT NULL,
@@ -89,7 +94,7 @@ primary key (`orderId`)
 CREATE TABLE OrderProducts (
 `orderId` INT(11) NOT NULL,
 `productId` VARCHAR(150) NOT NULL,
- `quantity` INT(150),
+`quantity` INT(150),
 `totalPrice` FLOAT(11) NOT NULL,
 `picture` VARCHAR(750),
 `name` VARCHAR(150) NOT NULL,
@@ -100,3 +105,7 @@ CREATE TABLE IncomeByType(
 `ptype` VARCHAR(10) NOT NULL,
 `total_income` FLOAT(11) NOT NULL
 );
+
+insert into IncomeByType values("meat",0);
+insert into IncomeByType values("other",0);
+insert into IncomeByType values("dairy",0);

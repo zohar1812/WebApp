@@ -88,6 +88,17 @@ const getCoundOrder = function getCoundOrder(callBackFunction) {
   });
 };
 
+const uptadePrice = function uptadePrice(cardId, price) {
+  const sql = `update Orders SET total_price='${price}' WHERE orderId='${cardId}'`;
+  connectionPoolManager.getConnection((err, connection) => {
+    // eslint-disable-next-line no-undef,no-unused-vars
+    connection.query(sql, (err, results) => {
+      if (err) throw err;
+      connection.release();
+    });
+  });
+};
+
 exports.addOrder = addOrder;
 exports.getOrderById = getOrderById;
 exports.getOrderByCustomerType = getOrderByCustomerType;
@@ -95,3 +106,4 @@ exports.getOrderByDate = getOrderByDate;
 exports.removeOrder = removeOrder;
 exports.getCoundOrder = getCoundOrder;
 exports.getAllOrder = getAllOrder;
+exports.uptadePrice = uptadePrice;
