@@ -21,7 +21,7 @@ const incomeByTape = require('./models/incomeByType');
 const port = process.env.PORT || 3000;
 const app = express();
 let cartID = 0;
-const userInf = {};
+let userInf = {};
 let productOrder = [];
 let recommendProduct = [];
 app.use(express.static(`${__dirname}/public`));
@@ -231,18 +231,28 @@ app.post('/loginverify', (req, res) => {
   });
 });
 
+
+app.get('/out', (req, res) => {
+  cartID = 0;
+  userInf = {};
+  productOrder = [];
+  recommendProduct = [];
+  res.redirect('/');
+});
+
+
 app.post('/cart/add/:cartId/:productId', (req, res) => {
   console.log('hi');
   orderAction.addProductToCart(req.params.cartId, req.params.productId, req.body.amaount,
     () => {
-    console.log("level1");
+      console.log('level1');
       orderProductTable.getProductsByOrderId(req.params.cartId,
         (productFromDB) => {
-          console.log("level2");
+          console.log('level2');
           productTable.getAllProducts((allProducts) => {
-            console.log("level3");
+            console.log('level3');
             recommendProduct = productAction.recommentionProduct(allProducts, productFromDB);
-            console.log("level4");
+            console.log('level4');
             productOrder = productFromDB;
             console.log(productOrder);
             res.redirect('/');

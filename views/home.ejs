@@ -35,7 +35,11 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/registration">Sign Up <i class="fas fa-user-plus"></i></a></li>
+					<% if(user.type) { %>
+					<li><a href="/out">Logout <i class="fas fa-user"></i></a></li>
+					<%}else{ %>
 					<li><a href="/login">Login <i class="fas fa-user"></i></a></li>
+					<% } %>
 				</ul>
 			</div>
 		</div>
