@@ -1,5 +1,6 @@
 const productTable = require('../../models/products');
 
+
 function getAllAvailableProducts(callBackFunction) {
   productTable.getAllProducts((result) => {
     // eslint-disable-next-line no-param-reassign,no-use-before-define

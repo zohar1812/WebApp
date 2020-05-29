@@ -70,6 +70,35 @@ function validAmound(amound) {
   return true;
 }
 
+function recommentionProduct(allProducts, productsInCart) {
+  const temp = [];
+  const result = [];
+  for (let i = 0; i < allProducts.length; i++) {
+    for (let j = 0; j < productsInCart.length; j++) {
+      if (allProducts[i].id != productsInCart[j].productId) {
+        // eslint-disable-next-line max-len
+        if (allProducts[i].category == productsInCart[j].category && allProducts[i].brand == productsInCart[j].brand) {
+          temp.push(allProducts[i]);
+        }
+      }
+    }
+  }
+  let flag;
+  for (let i = 0; i < temp.length; i++) {
+    flag = true;
+    for (let j = 0; j < productsInCart.length;j++) {
+      if (temp[i].id == productsInCart[j].productId) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag == true) {
+      result.push(temp[i]);
+    }
+  }
+  return result;
+}
 exports.deleteProduct = deleteProduct;
 exports.editProduct = editProduct;
 exports.addProduct = addProduct;
+exports.recommentionProduct = recommentionProduct;
