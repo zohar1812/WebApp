@@ -14,6 +14,7 @@ const connection = mysql.createConnection({
   user: 'b309a56c38621f',
   password: '4e9ac4e4',
   database: 'heroku_e0f01176dce3eaf',
+  connectTimeout: 300000,
 });
 
 

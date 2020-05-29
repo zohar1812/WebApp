@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 const mysql = require('mysql');
 
 let connectionPool;

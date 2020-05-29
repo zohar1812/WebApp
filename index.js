@@ -3,6 +3,7 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 // eslint-disable-next-line no-unused-vars
 const rec = require('./public/javascripts/reconstruction');
 const register = require('./public/javascripts/registration.js');
@@ -20,32 +21,17 @@ const incomeByTape = require('./models/incomeByType');
 const port = process.env.PORT || 3000;
 const app = express();
 let cartID = 0;
-const userInf = {};
+let userInf = {};
 let productOrder = [];
+let recommendProduct = [];
 app.use(express.static(`${__dirname}/public`));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// function onRequest(request, response) {
-//   response.writeHead(200, { 'content-Type': 'text/plain' });
-//   response.write('hello word');
-//   response.end();
-// }
+app.use(cookieParser());
+
 // toMainPage.getAllAvailableProducts();
-// eslint-disable-next-line no-undef
-// http.createServer(onRequest).listen(process.env.PORT || 3000, function () {
-//   // eslint-disable-next-line max-len
-// eslint-disable-next-line max-len
-//   console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
-// });
-// app.listen(process.env.PORT || 3000, function () {
-// eslint-disable-next-line max-len
-// console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
-// });
-// app.listen(8000, () => {
-//   console.log('Server is running at port 8000');
-// });
 
 app.get('/', (req, res) => {
   toMainPage.getAllAvailableProducts((result) => {
@@ -53,6 +39,7 @@ app.get('/', (req, res) => {
       user: userInf,
       cart: cartID,
       order: productOrder,
+      recommend: recommendProduct,
       products: result,
     });
   });
@@ -218,6 +205,7 @@ app.post('/forgot/reset/user/:id', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login');
 });
+
 app.post('/loginverify', (req, res) => {
   loginToSys.loginV(req.body.username, req.body.password, (result) => {
     if (result.error) {
@@ -243,14 +231,32 @@ app.post('/loginverify', (req, res) => {
   });
 });
 
+
+app.get('/out', (req, res) => {
+  cartID = 0;
+  userInf = {};
+  productOrder = [];
+  recommendProduct = [];
+  res.redirect('/');
+});
+
+
 app.post('/cart/add/:cartId/:productId', (req, res) => {
+  console.log('hi');
   orderAction.addProductToCart(req.params.cartId, req.params.productId, req.body.amaount,
     () => {
+      console.log('level1');
       orderProductTable.getProductsByOrderId(req.params.cartId,
         (productFromDB) => {
-          productOrder = productFromDB;
-          console.log(productOrder);
-          res.redirect('/');
+          console.log('level2');
+          productTable.getAllProducts((allProducts) => {
+            console.log('level3');
+            recommendProduct = productAction.recommentionProduct(allProducts, productFromDB);
+            console.log('level4');
+            productOrder = productFromDB;
+            console.log(productOrder);
+            res.redirect('/');
+          });
         });
     });
 });
@@ -272,19 +278,16 @@ app.get('/reportpage', (req, res) => {
     },
   });
 });
+
 app.post('/dayrep', (req, res) => {
   orderTable.getOrderByDate(req.body.reportByDay, (result) => {
     // eslint-disable-next-line eqeqeq
     if (result.length == 0) {
-      res.render('reportmain', {
-        massages: {
-          error: 'user ',
-        },
-      });
+      res.render('reportmain', { messages: { error: 'user' } });
     } else {
       res.render('reportmain', {
         messages: {
-          titleday: 'report by dat',
+          titleday: 'report by product type',
           dtype: result,
         },
       });
