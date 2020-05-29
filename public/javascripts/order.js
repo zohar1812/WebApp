@@ -48,6 +48,8 @@ const addProductToCart = function addProductToCart(orderID, productID, amount, c
           totalPrice: amount * result[0].price,
           picture: result[0].picture,
           name: result[0].name,
+          brand: result[0].brand,
+          category: result[0].category
         };
         orderProductTable.addProductToCart(data);
       }

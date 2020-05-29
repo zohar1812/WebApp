@@ -95,6 +95,19 @@ const getCoundProduct = function getCoundProduct(callBackFunction) {
   });
 };
 
+const getProductByCateBra = function getProductByCateBra(category, brand, callBackFunction) {
+  const sql = `SELECT * FROM Products WHERE category='${category}' AND brand = '${brand}'`;
+  // eslint-disable-next-line no-unused-vars
+  connectionPoolManager.getConnection((err, connection) => {
+    // eslint-disable-next-line no-shadow
+    connection.query(sql, (err, rows) => {
+      if (err) throw err;
+      callBackFunction(rows);
+      connection.release();
+    });
+  });
+};
+
 exports.updateAmountOfProduct = updateAmountOfProduct;
 exports.uptadePriceOfProduct = uptadePriceOfProduct;
 exports.addNewProduct = addNewProduct;
@@ -102,3 +115,4 @@ exports.deleteProductByID = deleteProductByID;
 exports.getProductByID = getProductByID;
 exports.getAllProducts = getAllProducts;
 exports.getCoundProduct = getCoundProduct;
+exports.getProductByCateBra = getProductByCateBra;

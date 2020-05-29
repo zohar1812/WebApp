@@ -98,6 +98,8 @@ CREATE TABLE OrderProducts (
 `totalPrice` FLOAT(11) NOT NULL,
 `picture` VARCHAR(750),
 `name` VARCHAR(150) NOT NULL,
+`brand` VARCHAR(150),
+`category` VARCHAR(150),
  primary key (`orderId`, `productId`)
 );
 

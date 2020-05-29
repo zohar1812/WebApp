@@ -23,6 +23,7 @@ const app = express();
 let cartID = 0;
 const userInf = {};
 let productOrder = [];
+let recommendProduct = [];
 app.use(express.static(`${__dirname}/public`));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
       user: userInf,
       cart: cartID,
       order: productOrder,
+      recommend: recommendProduct,
       products: result,
     });
   });
@@ -203,6 +205,7 @@ app.post('/forgot/reset/user/:id', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login');
 });
+
 app.post('/loginverify', (req, res) => {
   loginToSys.loginV(req.body.username, req.body.password, (result) => {
     if (result.error) {
@@ -229,13 +232,21 @@ app.post('/loginverify', (req, res) => {
 });
 
 app.post('/cart/add/:cartId/:productId', (req, res) => {
+  console.log('hi');
   orderAction.addProductToCart(req.params.cartId, req.params.productId, req.body.amaount,
     () => {
+    console.log("level1");
       orderProductTable.getProductsByOrderId(req.params.cartId,
         (productFromDB) => {
-          productOrder = productFromDB;
-          console.log(productOrder);
-          res.redirect('/');
+          console.log("level2");
+          productTable.getAllProducts((allProducts) => {
+            console.log("level3");
+            recommendProduct = productAction.recommentionProduct(allProducts, productFromDB);
+            console.log("level4");
+            productOrder = productFromDB;
+            console.log(productOrder);
+            res.redirect('/');
+          });
         });
     });
 });
@@ -257,11 +268,12 @@ app.get('/reportpage', (req, res) => {
     },
   });
 });
+
 app.post('/dayrep', (req, res) => {
   orderTable.getOrderByDate(req.body.reportByDay, (result) => {
     // eslint-disable-next-line eqeqeq
     if (result.length == 0) {
-      res.render('reportmain', { messages: { error: 'user ' } });
+      res.render('reportmain', { messages: { error: 'user' } });
     } else {
       res.render('reportmain', {
         messages: {
