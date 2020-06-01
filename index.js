@@ -18,7 +18,7 @@ const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3031;
 const app = express();
 let cartID = 0;
 let userInf = {};
