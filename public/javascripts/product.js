@@ -73,20 +73,30 @@ function validAmound(amound) {
 function recommentionProduct(allProducts, productsInCart) {
   const temp = [];
   const result = [];
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < allProducts.length; i++) {
+    // eslint-disable-next-line no-plusplus
     for (let j = 0; j < productsInCart.length; j++) {
+      // eslint-disable-next-line eqeqeq
       if (allProducts[i].id != productsInCart[j].productId) {
-        // eslint-disable-next-line max-len
+        // eslint-disable-next-line max-len,eqeqeq
         if (allProducts[i].category == productsInCart[j].category && allProducts[i].brand == productsInCart[j].brand) {
-          temp.push(allProducts[i]);
+          if ((productsInCart.findIndex((element) => element == allProducts[i])) == -1) {
+            if (temp.findIndex((element) => element == allProducts[i]) == -1) {
+              temp.push(allProducts[i]);
+            }
+          }
         }
       }
     }
   }
   let flag;
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < temp.length; i++) {
     flag = true;
+    // eslint-disable-next-line no-plusplus
     for (let j = 0; j < productsInCart.length;j++) {
+      // eslint-disable-next-line eqeqeq
       if (temp[i].id == productsInCart[j].productId) {
         flag = false;
         break;

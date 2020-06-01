@@ -221,8 +221,8 @@
 					</div>
 					<span class="cart-price cart-column"><%= recommend[i].price %></span>
 						<form action="/cart/add/<%= cart %>/<%= recommend[i].id %>" method="POST">
-								<button type="submit" class="btn btn-primary shop-item-button" role="button">Add to Cart</button>
 								<input type="text" name="amaount" class="form-control" placeholder="Enter quantity">
+								<button type="submit" class="btn btn-primary shop-item-button" role="button">Add to Cart</button>
 						</form>
 					</div>
 					<%} 															%>
