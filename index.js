@@ -18,7 +18,7 @@ const orderTable = require('./models/order');
 const paymentAction = require('./public/javascripts/payment');
 const incomeByTape = require('./models/incomeByType');
 
-const port = process.env.PORT || 3031;
+const port = process.env.PORT || 3000;
 const app = express();
 let cartID = 0;
 let userInf = {};
@@ -51,10 +51,11 @@ app.get('/sorted/:attr', (req, res) => {
     // eslint-disable-next-line no-param-reassign
     toMainPage.availableProducts = result.sort((a, b) => (a[attr] > b[attr] ? 1 : -1));
     res.render('home', {
-      user: userInf,
-      cart: cartID,
-      order: productOrder,
-      products: result,
+        user: userInf,
+        cart: cartID,
+        order: productOrder,
+        recommend: recommendProduct,
+        products: result,
     });
   });
 });
@@ -65,10 +66,11 @@ app.post('/filter', (req, res) => {
     // eslint-disable-next-line no-param-reassign
     result = toMainPage.filterProducts(result, req.body.parameter, req.body.keyword);
     res.render('home', {
-      user: userInf,
-      cart: cartID,
-      order: productOrder,
-      products: result,
+        user: userInf,
+        cart: cartID,
+        order: productOrder,
+        recommend: recommendProduct,
+        products: result,
     });
   });
 });
