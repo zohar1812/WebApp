@@ -168,41 +168,8 @@ app.post('/forgot/question/user/:id', (req, res) => {
     });
   }
 });
-app.post('/forgot/reset/user/:id', (req, res) => {
-  const errors = rec.updatePassword(req.body.username, req.body.password);
-  if (!rec.isEmpty(errors)) {
-    res.render('forgot-password-reset', {
-      user: {
-        username: req.body.username,
-        id: req.params.id,
-        ans: req.body.ans,
-      },
-      errors: {
-        ans: errors.password,
-      },
-    });
-  } else {
-    res.render('login');
-  }
-});
 
-app.post('/forgot/reset/user/:id', (req, res) => {
-  const errors = rec.updatePassword(req.body.username, req.body.password);
-  if (!rec.isEmpty(errors)) {
-    res.render('forgot-password-reset', {
-      user: {
-        username: req.body.username,
-        id: req.params.id,
-        ans: req.body.ans,
-      },
-      messages: {
-        error: errors.password,
-      },
-    });
-  } else {
-    res.render('login');
-  }
-});
+
 
 app.get('/login', (req, res) => {
   res.render('login');
